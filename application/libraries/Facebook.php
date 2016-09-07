@@ -263,8 +263,12 @@ Class Facebook
             return '';
         }
 
+        // return $this->helper->getLoginUrl(
+        //     base_url() . $this->config->item('facebook_login_redirect_url'),
+        //     $this->config->item('facebook_permissions')
+        // );
         return $this->helper->getLoginUrl(
-            base_url() . $this->config->item('facebook_login_redirect_url'),
+            'http://localhost/fbtool/' . $this->config->item('facebook_login_redirect_url'),
             $this->config->item('facebook_permissions')
         );
     }

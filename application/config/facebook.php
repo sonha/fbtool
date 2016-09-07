@@ -24,6 +24,16 @@ $config['facebook_app_secret']          = '8f462cbd80c76ac172dd82d507f2fe7f';
 $config['facebook_login_type']          = 'web';
 $config['facebook_login_redirect_url']  = 'example/web_login';
 $config['facebook_logout_redirect_url'] = 'example/logout';
-$config['facebook_permissions']         = array('public_profile', 'publish_actions', 'email');
+$config['facebook_permissions']         =  array(
+												'public_profile',
+												 'publish_actions',
+												 'email', 
+												 'publish_actions',
+												 'manage_pages',
+												 'user_managed_groups', 
+												 'publish_pages',
+												 'user_photos', 
+												 'user_posts'
+												);
 $config['facebook_graph_version']       = 'v2.5';
 $config['facebook_auth_on_load']        = TRUE;

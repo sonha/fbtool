@@ -19,9 +19,15 @@ class Example extends CI_Controller {
 	 */
 	public function index()
 	{
-		die('ffff');
-		$this->load->view('examples/start');
-	}
+		$access_token = $_SESSION['fb_access_token'];
+		$fb = $this->facebook->object();
+		$requestGroups = $fb->get('/me/accounts?limit=100', $access_token);
+	    $groups = $requestGroups->getGraphEdge()->asArray();
+	    echo '<pre>';
+	    var_dump($groups);die;
+	    echo "All Page";
+		// $this->load->view('examples/start');
+	}	
 
 	// ------------------------------------------------------------------------
 
@@ -31,7 +37,6 @@ class Example extends CI_Controller {
 	public function web_login()
 	{
 		$data['user'] = array();
-
 		// Check if user is logged in
 		if ($this->facebook->is_authenticated())
 		{

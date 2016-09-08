@@ -20,7 +20,7 @@
                 <tbody>
                 <?php foreach($pages['data'] as $key => $value) { ?>
                   <tr>
-                    <td><?php echo $value['name'];?></td>
+                    <td><a href="https://www.facebook.com/<?php echo $value['id'];?>" target="_blank"><?php echo $value['name'];?></a></td>
                     <td><?php echo $value['id'];?></td>
                     <td><?php echo implode(' - ', $value['perms'])?></td>
                     <td><?php echo $value['category'];?></td>

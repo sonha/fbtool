@@ -53,6 +53,7 @@ class User extends CI_Controller {
 		$data['title'] = 'List All Group';
 		$data['user'] = $this->user_info;
 		$data['groups'] = $this->facebook->request('get', '/me/groups?limit=1000');
+		// var_dump($data['groups']);die;
 		$this->load->view('layouts/partial_top', $data);
 		$this->load->view('user/list_group', $data);	
 		$this->load->view('layouts/partial_bottom');

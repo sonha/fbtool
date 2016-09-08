@@ -95,7 +95,8 @@
             </ul>
 
             <p>
-                <a href="<?php echo $this->facebook->logout_url(); ?>">Logout</a>
+                <!--<a href="<?php //echo $this->facebook->logout_url(); ?>">Logout</a>-->
+                <a href="<?php echo base_url() . "example/logout";?>">Logout</a>
             </p>
 
         </div>

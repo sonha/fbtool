@@ -12,6 +12,12 @@ class Example extends CI_Controller {
 		$this->load->helper('url');
 	}
 
+	public function test() {
+		$this->load->view('layouts/partial_top');
+		$this->load->view('examples/test');
+		$this->load->view('layouts/partial_bottom');
+	}
+
 	// ------------------------------------------------------------------------
 
 	/**
@@ -20,6 +26,7 @@ class Example extends CI_Controller {
 	public function index()
 	{
 		$access_token = $_SESSION['fb_access_token'];
+		// var_dump($access_token);die;
 		$fb = $this->facebook->object();
 		$requestGroups = $fb->get('/me/accounts?limit=100', $access_token);
 	    $groups = $requestGroups->getGraphEdge()->asArray();

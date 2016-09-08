@@ -41,6 +41,7 @@ $config['base_url'] = 'http://localhost/fbtool/';
 |
 */
 $config['index_page'] = '';
+$config['website'] = 'Codetool Ver 1.0';
 // $config['index_page'] = 'index.php';
 
 /*

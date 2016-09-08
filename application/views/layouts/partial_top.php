@@ -20,6 +20,33 @@
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/AdminLTE/dist/css/skins/_all-skins.min.css">
 
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/AdminLTE/plugins/datatables/dataTables.bootstrap.css">
+
+  <!-- Font Awesome -->
+  <!-- Ionicons -->
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/AdminLTE/plugins/daterangepicker/daterangepicker.css">
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/AdminLTE/plugins/datepicker/datepicker3.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/AdminLTE/plugins/iCheck/all.css">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/AdminLTE/plugins/colorpicker/bootstrap-colorpicker.min.css">
+  <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/AdminLTE/plugins/timepicker/bootstrap-timepicker.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/AdminLTE/plugins/select2/select2.min.css">
+  <!-- Theme style -->
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+
+  <?php
+        // if (isset($style)){
+        //     foreach ($style as $url){
+        //         echo "<link rel='stylesheet' href='" . $url . "'>";
+        //     }
+        // }
+  ?>
+
   <!-- Theme style -->
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -37,7 +64,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><b>Codetool</b>Ver1.0</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -484,11 +511,7 @@
             <li><a href=<?php echo base_url() ?>assets/AdminLTE/pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
           </ul>
         </li>
-        <li><a href="<?php echo base_url() ?>assets/AdminLTE/documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
-        <li class="header">LABELS</li>
-        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+        <li><a href="<?php echo base_url() ?>assets/AdminLTE/documentation/index.html"><i class="fa fa-gear"></i> <span>Cấu hình chung</span></a></li>
       </ul>
     </section>
     <!-- /.sidebar -->

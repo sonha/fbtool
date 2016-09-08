@@ -21,7 +21,7 @@
                 <?php foreach($groups['data'] as $key => $value) { ?>
                 <tr>
                   <td><a href="https://www.facebook.com/groups/<?php echo $value['id'];?>" target="_blank"><?php echo $value['name'];?></a></td>
-                  <td><a href="https://www.facebook.com/groups/<?php echo $value['id'];?>" target="_blank"><?php echo $value['id'];?></a></td>
+                  <td><?php echo $value['id'];?></td>
                   <td><?php echo $value['privacy'];?></td>
                   <td>-</td>
                   <td>X</td>

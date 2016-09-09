@@ -251,17 +251,8 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url() ?>assets/AdminLTE/dist/js/demo.js"></script>
 
-
-<?php
-    // if (isset($scripts)){
-    //     foreach ($scripts as $url){
-    //         echo "<script type='text/javascript' src='" . $url . "'></script>";
-    //     }
-    // }
-?>
-
 <!-- page script -->
-<!-- <script>
+<script>
   $(function () {
     $("#example1").DataTable();
     $('#example2').DataTable({
@@ -273,7 +264,7 @@
       "autoWidth": false
     });
   });
-</script> -->
+</script>
 
 <script>
   $(function () {

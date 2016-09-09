@@ -1,122 +1,182 @@
     <!-- Main content -->
     <section class="content">
-
-      <!-- SELECT2 EXAMPLE -->
-      <!-- /.box -->
-
-      <div class="row">
-        <div class="col-md-6">
-          <!-- /.box -->
-
-          <div class="box box-info">
-            <div class="box-header">
-              <h3 class="box-title">Color & Time Picker</h3>
+    <?php echo form_open('page/post'); ?>
+    <div class="box box-info">
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-6 pull-right">
+            <div class="form-group">
+                <label>Select Page</label>
+                <select class="form-control select2" name="page_info" style="width: 100%;">
+                  <?php foreach ($pages['data'] as $key => $value) { ?>
+                    <option value="<?php echo $value['id'].'-'.$value['access_token'];?>"><?php echo $value['name'];?></option>
+                  <?php }?>
+                </select>
+              </div>
+          </div>
+          <div class="col-md-12">
+            <div class="nav-tabs-custom">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Status</a></li>
+                <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Link</a></li>
+                <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Photo</a></li>
+                <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Video</a></li>
+                <li class="pull-right"></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="tab_1">
+                  <div class="form-group">
+                    <label>Status</label>
+                    <textarea class="form-control" name="status" rows="3" placeholder="Enter ..."></textarea>
+                  </div>
+                </div>
+                <!-- /.tab-pane -->
+                <div class="tab-pane" id="tab_2">
+                  <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>URL</label>
+                          <input type="text" name="url" class="form-control" placeholder="Enter ...">
+                        </div>
+                        <div class="form-group">
+                          <label>Preview Image with this link(URL)</label>
+                          <input type="text" name="image_url" class="form-control" placeholder="Enter ...">
+                        </div>
+                        <div class="form-group">
+                          <label>Message(The main body of the post, otherwise called the status message)</label>
+                          <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Title(Overwrites the title of the link preview)</label>
+                          <input type="text" class="form-control" placeholder="Enter ...">
+                        </div>
+                        <div class="form-group">
+                          <label>Description(Overwrites the description in the link preview)</label>
+                          <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                        </div>
+                        <div class="form-group">
+                          <label>Caption(Overwrites the caption under the title in the link preview)</label>
+                          <input type="text" class="form-control" placeholder="Enter ...">
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <!-- /.tab-pane -->
+                <div class="tab-pane" id="tab_3">
+                  <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Image URL</label>
+                          <input type="text" class="form-control" placeholder="Enter ...">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Description</label>
+                          <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab_4">
+                  <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Video URL</label>
+                          <input type="text" class="form-control" placeholder="Enter ...">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Title</label>
+                          <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Description</label>
+                          <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <!-- /.tab-pane -->
+              </div>
+              <!-- /.tab-content -->
             </div>
-            <div class="box-body">
-              <!-- Color Picker -->
-              <div class="form-group">
-                <label>Color picker:</label>
-                <input type="text" class="form-control my-colorpicker1">
+            <!-- nav-tabs-custom -->
+          </div>
+          <!-- /.col (left) -->
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <!-- /.box -->
+
+            <div class="box box-info">
+              <div class="box-header">
+                <h3 class="box-title">Schedule (with your timezone)</h3>
               </div>
-              <!-- /.form group -->
-
-              <!-- Color Picker -->
-              <div class="form-group">
-                <label>Color picker with addon:</label>
-
-                <div class="input-group my-colorpicker2">
-                  <input type="text" class="form-control">
-
-                  <div class="input-group-addon">
-                    <i></i>
-                  </div>
-                </div>
-                <!-- /.input group -->
-              </div>
-              <div class="form-group">
-                <label>Date:</label>
-
-                <div class="input-group date">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" class="form-control pull-right" id="datepicker">
-                </div>
-                <!-- /.input group -->
-              </div>
-              <!-- /.form group -->
-
-              <!-- Date range -->
-              <div class="form-group">
-                <label>Date range:</label>
-
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" class="form-control pull-right" id="reservation">
-                </div>
-                <!-- /.input group -->
-              </div>
-              <!-- /.form group -->
-
-              <!-- Date and time range -->
-              <div class="form-group">
-                <label>Date and time range:</label>
-
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="text" class="form-control pull-right" id="reservationtime">
-                </div>
-                <!-- /.input group -->
-              </div>
-              <!-- /.form group -->
-
-              <!-- Date and time range -->
-              <div class="form-group">
-                <label>Date range button:</label>
-
-                <div class="input-group">
-                  <button type="button" class="btn btn-default pull-right" id="daterange-btn">
-                    <span>
-                      <i class="fa fa-calendar"></i> Date range picker
-                    </span>
-                    <i class="fa fa-caret-down"></i>
-                  </button>
-                </div>
-              </div>
-              
-              <!-- /.form group -->
-
-              <!-- time Picker -->
-              <div class="bootstrap-timepicker">
+              <div class="box-body">
                 <div class="form-group">
-                  <label>Time picker:</label>
+                  <label>Date:</label>
 
-                  <div class="input-group">
-                    <input type="text" class="form-control timepicker">
-
+                  <div class="input-group date">
                     <div class="input-group-addon">
-                      <i class="fa fa-clock-o"></i>
+                      <i class="fa fa-calendar"></i>
                     </div>
+                    <input type="text" class="form-control pull-right" id="datepicker">
                   </div>
                   <!-- /.input group -->
                 </div>
                 <!-- /.form group -->
+
+                <!-- Date and time range -->
+                <div class="form-group">
+                  <label>Date and time range:</label>
+
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <input type="text" class="form-control pull-right" id="reservationtime">
+                  </div>
+                  <!-- /.input group -->
+                </div>
+
+                <!-- time Picker -->
+                <div class="bootstrap-timepicker">
+                  <div class="form-group">
+                    <label>Time picker:</label>
+
+                    <div class="input-group">
+                      <input type="text" class="form-control timepicker">
+
+                      <div class="input-group-addon">
+                        <i class="fa fa-clock-o"></i>
+                      </div>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                  <!-- /.form group -->
+                </div>
               </div>
+              <!-- /.box-body -->
             </div>
-            <!-- /.box-body -->
+            <!-- /.box -->
+
           </div>
-          <!-- /.box -->
-
         </div>
-        <!-- /.col (left) -->
-        
-      <!-- /.row -->
-
+      </div>
+      <div class="box-footer">
+        <button type="submit" class="btn btn-default">Back To List</button>
+        <input type="submit" name="submit" class="btn btn-info pull-right" value="Sign in">
+      </div>
+      </div>
+      </form>
+    </div>
     </section>
     <!-- /.content -->
-  </div>
+ 
  

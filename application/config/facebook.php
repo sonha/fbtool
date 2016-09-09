@@ -30,7 +30,6 @@ $config['facebook_permissions']         =  array(
 												 'user_location',
 												 'user_about_me',
 												 'email', 
-												 'read_stream',
 												 'publish_actions',
 												 'manage_pages',
 												 'user_managed_groups', 

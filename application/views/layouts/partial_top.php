@@ -371,15 +371,15 @@
             <li><a href="<?php echo base_url().'user/list_group'; ?>"><i class="fa fa-circle-o"></i>List Group</a></li>
             <li><a href="<?php echo base_url().'user/list_page'; ?>"><i class="fa fa-circle-o"></i>List Fan Page</a></li>
             <li>
-              <a href="#"><i class="fa fa-circle-o"></i> Level One
+              <a href="#"><i class="fa fa-circle-o"></i> Tool
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
+                <li><a href="<?php echo base_url().'tool/filter'; ?>"><i class="fa fa-circle-o"></i> Lọc comment khách hàng</a></li>
                 <li>
-                  <a href="#"><i class="fa fa-circle-o"></i> Level Two
+                  <a href="#"><i class="fa fa-circle-o"></i> Other tool
                     <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
                     </span>

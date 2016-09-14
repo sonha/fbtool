@@ -253,6 +253,86 @@
 
 <!-- page script -->
 <script>
+    function hideProcess() {
+            $('.process').css('display', 'none');
+    }
+
+    function showProcess() {
+            $('.process').css('display', 'block');
+    }
+
+    function showTitleResult() {
+          $('#title_result').css('display', 'block');
+    }
+
+    function hideTitleResult() {
+          $('#title_result').css('display', 'none');
+    }
+    function clearData() {
+            $('#data_result').html('');
+    }
+
+    function getListComment(pageAfter = null, stt = 0) {
+            if (pageAfter == null) {
+                $('#data_result').html('');
+            }
+            var url = '<?php echo base_url();?>/tool/ajaxGetComment';
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    start_date: $('#start_date').val(),
+                    end_date: $('#end_date').val(),
+                    page_url: $('#page_url').val(),
+                    type: $('#type').val(),
+                    keyword: $('#keyword').val(),
+                    pageAfter: pageAfter,
+                    search_time: $('#search_time').val(),
+                    sort_by: $('#sort_by').val(),
+                    _csrf: 'SXFpVFVIQWsWGgwnAwQPCAQBNhYnfQ1ZejshGzQ5AwErASoLLSMNUw=='
+                },
+                success: function (result) {
+                    var json = $.parseJSON(result);
+                    var data = json.data;
+                    var pageAfter = json.pageAfter;
+                    var campaignId = json.campaignId;
+
+                    if (data.length > 0) {
+                        var totalRerult = stt + data.length;
+                        $('#title_result').html('Tìm thấy <span style="color: red">' + totalRerult + '</span> comments phù hợp cho <a target="_blank" style="text-decoration: none" href="http://www.facebook.com/' + campaignId + '">chiến dịch</a>');
+                    }
+                    if (data !== []) {
+                      console.log(pageAfter);
+                        var i;
+                        for (i = 0; i < data.length; i++) {
+                            var html = '';
+                            html += '<tr>'
+                                + '<td>' + (++stt) + '</td>'
+                                + '<td>' + data[i].from.name + '</td>'
+                                + '<td><a target="_blank" href="https://facebook.com/' + data[i].id + '">' + data[i].from.name + '</a></td>'
+                                + '<td>' + data[i].message + '</td>'
+                                + '<td>' + data[i].created_time + '</td>'
+                                + '</tr>';
+                            $('#data_result').append(html);
+
+                        }
+                        if (pageAfter != null && pageAfter != '') {
+                            console.log(stt);
+                            getListComment(pageAfter, stt);
+
+                        } else {
+                            hideProcess();
+                            showTitleResult();
+                        }
+                    } else {
+                        hideProcess();
+                        showTitleResult();
+                    }
+                }
+            });
+        }
+
+
   $(function () {
     $("#example1").DataTable();
     $('#example2').DataTable({

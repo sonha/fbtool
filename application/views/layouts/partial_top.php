@@ -378,6 +378,8 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="<?php echo base_url().'tool/filter'; ?>"><i class="fa fa-circle-o"></i> Lọc comment khách hàng</a></li>
+                <li><a href="<?php echo base_url().'tool/checktimecomment'; ?>"><i class="fa fa-circle-o"></i>Khung giờ khách comment</a></li>
+                <li><a href="<?php echo base_url().'tool/blacklist'; ?>"><i class="fa fa-circle-o"></i>Import blacklist</a></li>
                 <li>
                   <a href="#"><i class="fa fa-circle-o"></i> Other tool
                     <span class="pull-right-container">
@@ -393,6 +395,89 @@
             </li>
           </ul>
         </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-search-plus"></i>
+            <span>Auto Comment</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="<?php echo base_url() ?>assets/AdminLTE/pages/UI/general.html"><i class="fa fa-pinterest"></i> Pinterest</a></li>
+            <li>
+                  <a href="#"><i class="fa fa-facebook"></i> Facebook
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Search Fan Page</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Group Fan Page</a></li>
+                  </ul>
+                </li>
+            <li><a href="#"><i class="fa fa-youtube"></i>Youtube</a></li>
+            <li><a href="#"><i class="fa fa-instagram"></i>Instagram</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Timeline</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Modals</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-search-plus"></i>
+            <span>Find Content</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="<?php echo base_url() ?>assets/AdminLTE/pages/UI/general.html"><i class="fa fa-pinterest"></i> Pinterest</a></li>
+            <li>
+                  <a href="#"><i class="fa fa-facebook"></i> Facebook
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Search Fan Page</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Group Fan Page</a></li>
+                  </ul>
+                </li>
+            <li><a href="#"><i class="fa fa-youtube"></i>Youtube</a></li>
+            <li><a href="#"><i class="fa fa-instagram"></i>Instagram</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Timeline</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Modals</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-search-plus"></i>
+            <span>Auto Schedule</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="<?php echo base_url() ?>assets/AdminLTE/pages/UI/general.html"><i class="fa fa-pinterest"></i> Pinterest</a></li>
+            <li>
+                  <a href="#"><i class="fa fa-facebook"></i> Facebook
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Search Fan Page</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Group Fan Page</a></li>
+                  </ul>
+                </li>
+            <li><a href="#"><i class="fa fa-youtube"></i>Youtube</a></li>
+            <li><a href="#"><i class="fa fa-instagram"></i>Instagram</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Timeline</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Modals</a></li>
+          </ul>
+        </li>
+        <li><a href="#"><i class="fa fa-envelope-o"></i> <span>Auto Invite</span></a></li>
+        <li><a href="<?php echo base_url() ?>assets/AdminLTE/documentation/index.html"><i class="fa fa-gear"></i> <span>Cấu hình chung</span></a></li>
        <!--  <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
@@ -511,7 +596,7 @@
             <li><a href=<?php echo base_url() ?>assets/AdminLTE/pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
           </ul>
         </li>
-        <li><a href="<?php echo base_url() ?>assets/AdminLTE/documentation/index.html"><i class="fa fa-gear"></i> <span>Cấu hình chung</span></a></li>
+        
       </ul>
     </section>
     <!-- /.sidebar -->

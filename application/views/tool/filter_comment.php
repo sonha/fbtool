@@ -113,16 +113,6 @@
                 </thead>
                 <tbody id="data_result">
                 </tbody>
-                <tfoot>
-                <tr>
-                  <th>STT</th>
-                  <th>Tên khách hàng</th>
-                  <th>Đi đến comment</th>
-                  <th>Comment</th>
-                  <th>Time</th>
-                  <th>Action</th>
-                </tr>
-                </tfoot>
               </table>
             </div>
             <!-- /.box-body -->

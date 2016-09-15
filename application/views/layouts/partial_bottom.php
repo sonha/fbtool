@@ -310,6 +310,7 @@
                     var campaignId = json.campaignId;
                     if(json.error_url) {
                       $(".form-group" ).has( "#page_url" ).addClass("has-error");
+                      hideProcess();
                     } else {
                       $(".form-group" ).has( "#page_url" ).removeClass("has-error");
                     }

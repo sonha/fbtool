@@ -23,37 +23,37 @@ class Tool extends CI_Controller {
 
 	public function filter() {
 		$data['user'] = $this->user_info;
-
-
-		// $data['pages'] = $this->facebook->request('get', '/1805441692_10205315391363369');
-		// var_dump($data['pages']);die;
-
 		$this->load->view('layouts/partial_top', $data);
 		$this->load->view('tool/filter_comment');	
 		$this->load->view('layouts/partial_bottom');
 	}
 
-	function getFacebookId($url) {
-    $id =  substr(strrchr($url,'/'),1); 
-    // var_dump($id);die;
-    $json = file_get_contents('https://graph.facebook.com/'.$id);
-    $json = json_decode($json);
-    return $json->id;
-	}
-
-	public function ajaxGetComment() {
+	public function ajaxGetComment() {	
 		$after = isset($_POST['pageAfter']) ? $_POST['pageAfter'] : '';
+		$sort_by = isset($_POST['sort_by']) ? $_POST['sort_by'] : '';
+		$page_url = isset($_POST['page_url']) ? $_POST['page_url'] : '';
 		$data['user'] = $this->user_info;
-		// Hien tai dang fix cung duong link nhe
-		// Neu can lay link thi chi can 
-		$data['comments'] = $this->facebook->request('get', '438867132818613_1123270124378307/comments?after='.$after);
-		// $data['comments'] = $this->facebook->request('get', '438867132818613_1124919824213337/comments?after='.$after);
-		$data['comments']['pageAfter'] = isset($data['comments']['paging']['cursors']['after']) ? $data['comments']['paging']['cursors']['after'] : '';
-		// $data['comments'] = $this->facebook->request('get', '1805441692_10205315391363369/comments'.$after);
-		echo json_encode($data['comments']);die;
 
-		// var_dump($_POST);die;
-
+		if($page_url) {
+			$param = explode('/', $page_url );
+			$page_name = $param[3];
+			$item_type = $param[4];
+			if($item_type == 'photos') {
+				$item_id = $param[6];
+			} elseif($item_type == 'videos') {
+				$item_id = $param[5];
+			} elseif($item_type == 'posts') {
+				$item_id = $param[5];
+			}
+			$page_info = $this->facebook->request('get', $page_name);
+			$object_id = $page_info['id'].'_'.$item_id;
+			$data['comments'] = $this->facebook->request('get', $object_id .'/comments?after='.$after);
+			$data['comments']['pageAfter'] = isset($data['comments']['paging']['cursors']['after']) ? $data['comments']['paging']['cursors']['after'] : '';
+			echo json_encode($data['comments']);exit();
+		} else {
+			echo json_encode(array('message' => 'Link sai cmnr'));exit();
+		}
+		
 		
 	}
 }

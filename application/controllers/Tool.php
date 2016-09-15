@@ -21,6 +21,14 @@ class Tool extends CI_Controller {
 		$this->user_info = $user_info;
 	}
 
+	public function title() {
+		$data['user'] = $this->user_info;
+		$data['title'] = "Tool tạo tiêu đề gây sốc";
+		$this->load->view('layouts/partial_top', $data);
+		$this->load->view('tool/title_tool');	
+		$this->load->view('layouts/partial_bottom');
+	}
+
 	public function filter() {
 		$data['user'] = $this->user_info;
 		$data['title'] = "Get Comment Tool";

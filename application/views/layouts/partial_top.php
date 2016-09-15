@@ -477,6 +477,7 @@
           </ul>
         </li>
         <li><a href="#"><i class="fa fa-envelope-o"></i> <span>Auto Invite</span></a></li>
+        <li><a href="<?php echo base_url() ?>tool/title"><i class="fa fa-envelope-o"></i> <span>Công cụ tự tạo tiêu đề hấp dẫn</span></a></li>
         <li><a href="<?php echo base_url() ?>assets/AdminLTE/documentation/index.html"><i class="fa fa-gear"></i> <span>Cấu hình chung</span></a></li>
        <!--  <li class="treeview">
           <a href="#">

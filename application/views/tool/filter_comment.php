@@ -6,42 +6,87 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Quick Example</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
             <form role="form">
               <div class="box-body">
                 <div class="form-group">
-                  <label>Thời gian</label>
-                  <select class="form-control" name="search_time" id="search_time">
-                    <option value="0">Tất cả</option>
-                    <option value="1">Tùy chỉnh</option>
-                  </select>
+                  <div class="row">
+                    <div class="col-md-1">
+                    <label>Thời gian</label>
+                    </div>
+                    <div class="col-md-4">
+                    <select class="form-control" name="search_time" id="search_time">
+                      <option value="0">Tất cả</option>
+                      <option value="1">Tùy chỉnh</option>
+                    </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group custom_time" style="display:none">
+                  <div class="row">
+                    <div class="col-md-1">
+                      <label>Khoảng thời gian:</label>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control pull-right" id="reservation">
+                      </div>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Link bài viết</label>
-                  <input type="text" name="page_url" id="page_url" class="form-control" id="exampleInputEmail1" placeholder="Enter URL">
+                  <div class="row">
+                    <div class="col-md-1">
+                      <label for="exampleInputEmail1">Link bài viết</label>
+                    </div>
+                    <div class="col-md-10">
+                      <input type="text" name="page_url" id="page_url" class="form-control" id="exampleInputEmail1" placeholder="Enter URL">
+                      <span class="help-block" style="display:none">Link không được để trống</span>
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label>Tìm kiếm</label>
-                  <select class="form-control" name="type" id="type">
-                    <option value="all">Tất cả</option>
-                    <option value="mobile">Số điện thoại</option>
-                    <option value="email">Email</option>
-                    <option value="keyword">Keyword</option>
-                  </select>
+                  <div class="row">
+                    <div class="col-md-1">
+                      <label>Tìm kiếm</label>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-control" name="type" id="type">
+                        <option value="all">Tất cả</option>
+                        <option value="mobile">Số điện thoại</option>
+                        <option value="email">Email</option>
+                        <option value="keyword">Keyword</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Keyword</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Keyword" name="keyword" id="keyword">
+                  <div class="row">
+                    <div class="col-md-1">
+                      <label for="exampleInputEmail1">Keyword</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Keyword" name="keyword" id="keyword">
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label>Sắp xếp</label>
-                  <select class="form-control" name="sort_by" id="sort_by">
-                    <option value="reverse_chronological">Mới nhất</option>
-                    <option value="chronological">Cũ nhất</option>
-                  </select>
+                  <div class="row">
+                    <div class="col-md-1">
+                      <label>Sắp xếp</label>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-control" name="sort_by" id="sort_by">
+                        <option value="reverse_chronological">Mới nhất</option>
+                        <option value="chronological">Cũ nhất</option>
+                      </select>
+                  </div>
                 </div>
               </div>
                 
@@ -53,17 +98,7 @@
               </div>
               <span class="process" style="display: none;"><img src="<?php echo base_url() ?>assets/images/process.gif" title="process" data-pin-nopin="true"></span>
             </form>
-          </div>
-        </div>
-      </div>
-      <p id="title_result" style="display: none;"></p>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <!-- <h3 class="box-title">List Group</h3> -->
-            </div>
-            <!-- /.box-header -->
+            <p id="title_result" style="display: none;"></p>
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -72,17 +107,29 @@
                   <th>Tên khách hàng</th>
                   <th>Đi đến comment</th>
                   <th>Comment</th>
+                  <th>Time</th>
+                  <th>Action</th>
                 </tr>
                 </thead>
                 <tbody id="data_result">
                 </tbody>
+                <tfoot>
+                <tr>
+                  <th>STT</th>
+                  <th>Tên khách hàng</th>
+                  <th>Đi đến comment</th>
+                  <th>Comment</th>
+                  <th>Time</th>
+                  <th>Action</th>
+                </tr>
+                </tfoot>
               </table>
             </div>
             <!-- /.box-body -->
           </div>
-          <!-- /.box -->
+          </div>
         </div>
-        <!-- /.col -->
       </div>
+      
       </form>
     </section>

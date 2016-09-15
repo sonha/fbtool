@@ -253,6 +253,15 @@
 
 <!-- page script -->
 <script>
+
+    $('form').on('change', '#search_time', function () {
+            if ($('#search_time option:selected').val() == 1) {
+                $('.custom_time').css('display', 'block');
+            } else {
+                $('.custom_time').css('display', 'none');
+            }
+        });
+
     function hideProcess() {
             $('.process').css('display', 'none');
     }
@@ -270,9 +279,12 @@
     }
     function clearData() {
             $('#data_result').html('');
+            $('#title_result').html('');
+
     }
 
     function getListComment(pageAfter = null, stt = 0) {
+          //   ĐÂY LÀ JAVASCRIPT ( ĐÃ CẢI TIẾN)
             if (pageAfter == null) {
                 $('#data_result').html('');
             }
@@ -296,6 +308,11 @@
                     var data = json.data;
                     var pageAfter = json.pageAfter;
                     var campaignId = json.campaignId;
+                    if(json.error_url) {
+                      $(".form-group" ).has( "#page_url" ).addClass("has-error");
+                    } else {
+                      $(".form-group" ).has( "#page_url" ).removeClass("has-error");
+                    }
 
                     if (data.length > 0) {
                         var totalRerult = stt + data.length;
@@ -306,12 +323,13 @@
                         var i;
                         for (i = 0; i < data.length; i++) {
                             var html = '';
-                            html += '<tr>'
+                            html += '<tr role="row" class="odd">'
                                 + '<td>' + (++stt) + '</td>'
                                 + '<td>' + data[i].from.name + '</td>'
                                 + '<td><a target="_blank" href="https://facebook.com/' + data[i].id + '">' + data[i].from.name + '</a></td>'
                                 + '<td>' + data[i].message + '</td>'
                                 + '<td>' + data[i].created_time + '</td>'
+                                + '<td><button type="button" class="btn btn-block btn-success">Lưu vào danh sách</button></td>'
                                 + '</tr>';
                             $('#data_result').append(html);
 

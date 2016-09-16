@@ -378,6 +378,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="<?php echo base_url().'tool/filter'; ?>"><i class="fa fa-circle-o"></i> Lọc comment khách hàng</a></li>
+                <li><a href="<?php echo base_url().'tool/email_filter'; ?>"><i class="fa fa-circle-o"></i> Lọc Email khách hàng</a></li>
                 <li><a href="<?php echo base_url().'tool/checktimecomment'; ?>"><i class="fa fa-circle-o"></i>Khung giờ khách comment</a></li>
                 <li><a href="<?php echo base_url().'tool/blacklist'; ?>"><i class="fa fa-circle-o"></i>Import blacklist</a></li>
                 <li>

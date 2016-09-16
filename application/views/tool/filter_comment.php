@@ -107,6 +107,8 @@
                   <th>Tên khách hàng</th>
                   <th>Đi đến comment</th>
                   <th>Comment</th>
+                  <th>Email</th>
+                  <th>Số điện thoại</th>
                   <th>Time</th>
                   <th>Action</th>
                 </tr>

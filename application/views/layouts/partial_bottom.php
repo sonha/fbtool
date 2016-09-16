@@ -280,7 +280,6 @@
     function clearData() {
             $('#data_result').html('');
             $('#title_result').html('');
-
     }
 
     function getListComment(pageAfter = null, stt = 0) {
@@ -319,7 +318,7 @@
                         var totalRerult = stt + data.length;
                         $('#title_result').html('Tìm thấy <span style="color: red">' + totalRerult + '</span> comments phù hợp cho <a target="_blank" style="text-decoration: none" href="http://www.facebook.com/' + campaignId + '">chiến dịch</a>');
                     }
-                    if (data !== []) {
+                    if (data != []) {
                       console.log(pageAfter);
                         var i;
                         for (i = 0; i < data.length; i++) {
@@ -329,6 +328,8 @@
                                 + '<td>' + data[i].from.name + '</td>'
                                 + '<td><a target="_blank" href="https://facebook.com/' + data[i].id + '">' + data[i].from.name + '</a></td>'
                                 + '<td>' + data[i].message + '</td>'
+                                + '<td>' + data[i].email + '</td>'
+                                + '<td>' + data[i].mobile + '</td>'
                                 + '<td>' + data[i].created_time + '</td>'
                                 + '<td><button type="button" class="btn btn-block btn-success">Lưu vào danh sách</button></td>'
                                 + '</tr>';
@@ -344,8 +345,9 @@
                             showTitleResult();
                         }
                     } else {
+                        $('#data_result').html('');
                         hideProcess();
-                        showTitleResult();
+                        // showTitleResult();
                     }
                 }
             });

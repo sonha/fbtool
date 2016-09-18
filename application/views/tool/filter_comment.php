@@ -72,7 +72,7 @@
                       <label for="exampleInputEmail1">Keyword</label>
                     </div>
                     <div class="col-md-4">
-                      <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Keyword" name="keyword" id="keyword">
+                      <input type="text" class="form-control" placeholder="Keyword" name="keyword" id="keyword">
                     </div>
                   </div>
                 </div>

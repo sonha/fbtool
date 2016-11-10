@@ -34,15 +34,16 @@ class Page extends CI_Controller {
 		$data['pages'] = $this->facebook->request('get', '/me/accounts?limit=1000');
 
 		if(isset($_POST['submit'])) {
-			var_dump($_POST);die;
+			// var_dump($_POST);die;
 			$page_info = $_POST['page_info'];  // select co value dang : page_id-page_access_token de tien lay token
 			$page_id = explode('-', $page_info)[0];
 			$page_token = explode('-', $page_info)[1];
 			$fb = $this->facebook->object();
+			$mesage = $_POST['status'];
 
 			$post = $fb->post('/'.$page_id .'/feed',
-	                 array('message' => 'Test Posting',
-	                        'link' => 'http://dantri.com.vn/xa-hoi/mot-nguoi-rai-30-ty-dong-chay-vao-dai-bieu-quoc-hoi-de-lam-gi-20160908113327704.htm',
+	                 array('message' => $mesage,
+	                        'link' => 'https://www.youtube.com/watch?v=b1wptj5zmGo',
 	                        // 'published' => false,
 	                        // 'place' => $place,
 	                        // 'scheduled_publish_time' => $now

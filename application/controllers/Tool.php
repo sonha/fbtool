@@ -41,6 +41,8 @@ class Tool extends CI_Controller {
 		$after = isset($_POST['pageAfter']) ? $_POST['pageAfter'] : '';
 		$sort_by = isset($_POST['sort_by']) ? $_POST['sort_by'] : '';
 		$page_url = isset($_POST['page_url']) ? $_POST['page_url'] : '';
+		$keyword = isset($_POST['keyword']) ? $_POST['keyword'] : '';
+		$type = isset($_POST['type']) ? $_POST['type'] : '';
 		$data['user'] = $this->user_info;
 
 		if($page_url) {
@@ -60,7 +62,6 @@ class Tool extends CI_Controller {
 				$page_info = $this->facebook->request('get', $page_name);
 				$object_id = $page_info['id'].'_'.$item_id;
 				$data['comments'] = $this->facebook->request('get', $object_id .'/comments?after='.$after.'&order='.$sort_by);
-				// var_dump($data['comments']);die;
 
 				//check Regex để lấy email 
 				foreach($data['comments']['data'] as $key => $value) {
@@ -68,6 +69,15 @@ class Tool extends CI_Controller {
 					$matches_mobile = array();
 					$pattern_email = '/[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,4}\b/i';
 					$pattern_mobile = '/\b\d{3}\s*\s*\d{3}\s*\s*\d{4}\b/';
+
+					//Check Keyword in string
+					if($keyword && $type == "keyword") {
+						// die('ddd');
+						if (strpos($value['message'], $keyword) == false) {
+    						unset($data['comments']['data'][$key]);
+						}
+					}
+					
 					// $pattern_mobile = '(\+84|0)\d{9,10}';
 					preg_match_all($pattern_mobile,$value['message'],$matches_mobile);
 					preg_match_all($pattern_email,$value['message'],$matches_email);

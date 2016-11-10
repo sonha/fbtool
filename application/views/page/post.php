@@ -126,24 +126,11 @@
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="datepicker">
+                    <input type="text" class="form-control pull-right" id="datepicker" name="date_schedule">
                   </div>
                   <!-- /.input group -->
                 </div>
                 <!-- /.form group -->
-
-                <!-- Date and time range -->
-                <div class="form-group">
-                  <label>Date and time range:</label>
-
-                  <div class="input-group">
-                    <div class="input-group-addon">
-                      <i class="fa fa-clock-o"></i>
-                    </div>
-                    <input type="text" class="form-control pull-right" id="reservationtime">
-                  </div>
-                  <!-- /.input group -->
-                </div>
 
                 <!-- time Picker -->
                 <div class="bootstrap-timepicker">
@@ -151,7 +138,7 @@
                     <label>Time picker:</label>
 
                     <div class="input-group">
-                      <input type="text" class="form-control timepicker">
+                      <input type="text" class="form-control timepicker" name="time_schedule">
 
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>

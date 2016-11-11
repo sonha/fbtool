@@ -152,19 +152,19 @@
 
             <div class="box box-info">
               <div class="box-header">
-                <h3 class="box-title">Select Page</h3>
+                <h3 class="box-title">Select Group</h3>
               </div>
               <div class="box-body">
                 <div class="form-group">
-                  <label>Page:</label>
+                  <label>Group:</label>
 
                   <div class="input-group date">
                     <div class="input-group-addon">
                       <i class="fa fa-facebook-square"></i>
                     </div>
-                    <select class="form-control select2" multiple="multiple" data-placeholder="Select Pages" name="page_info[]" style="width: 100%;">
-                      <?php foreach ($pages['data'] as $key => $value) { ?>
-                        <option value="<?php echo $value['id'].'-'.$value['access_token'];?>"><?php echo $value['name'];?></option>
+                    <select class="form-control select2" multiple="multiple" data-placeholder="Select Pages" name="group_info[]" style="width: 100%;">
+                      <?php foreach ($groups['data'] as $key => $value) { ?>
+                        <option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option>
                       <?php }?>
                     </select>
                   </div>
@@ -181,7 +181,7 @@
       </div>
       <div class="box-footer">
         <button type="submit" class="btn btn-default">Back To List</button>
-        <input type="submit" name="submit" class="btn btn-info pull-right" value="Sign in">
+        <input type="submit" name="submit" class="btn btn-info pull-right" value="Schedule">
       </div>
       </div>
       </form>

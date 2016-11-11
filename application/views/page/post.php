@@ -181,7 +181,7 @@
       </div>
       <div class="box-footer">
         <button type="submit" class="btn btn-default">Back To List</button>
-        <input type="submit" name="submit" class="btn btn-info pull-right" value="Sign in">
+        <input type="submit" name="submit" class="btn btn-info pull-right" value="Schedule">
       </div>
       </div>
       </form>

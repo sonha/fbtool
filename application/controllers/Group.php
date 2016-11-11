@@ -30,33 +30,34 @@ class Group extends CI_Controller {
 		$this->load->view('layouts/partial_bottom');
 	}
 
-	public function facebook_publishing($fb = null, $page_id = null, $page_token = null, $url = null, $description = null) {
-		$post = $fb->post('/'.$page_id .'/feed',
+	public function facebook_publishing($fb = null, $group_id = null, $access_token = null, $url = null, $description = null) {
+		$post = $fb->post('/'.$group_id .'/feed',
 		                 array('message' => $description,
 		                        'link' => $url,
-		                  ),
-		                  $page_token);
+		                  ));
 		return $post = $post->getGraphNode()->asArray();
 	}
 
 
 	public function post() {
-		$data['title'] = 'Create Schedule';
+		$data['title'] = 'Create Group Schedule';
 		$data['user'] = $this->user_info;
-		$data['pages'] = $this->facebook->request('get', '/me/accounts?limit=1000');
-
+		$access_token = $this->facebook->is_authenticated();
+		// var_dump($token);die;
+		$data['groups'] = $this->facebook->request('get', '/me/groups?limit=1000');
+		// var_dump($data['groups']);die;
 		if(isset($_POST['submit'])) {
-			$all_page_info = $_POST['page_info'];  // select co value dang : page_id-page_access_token de tien lay token
-			$type = $_POST['type'];  // select co value dang : page_id-page_access_token de tien lay token
+			$all_group_info = $_POST['group_info'];  
+			// var_dump($all_group_info);die;
+			$type = $_POST['type'];  
 
-			foreach($all_page_info as $key => $page_info) {
-				$page_id = explode('-', $page_info)[0];
-				$page_token = explode('-', $page_info)[1];
+			foreach($all_group_info as $key => $group_info) {
+				$group_id = $group_info;
 				$fb = $this->facebook->object();
 				$mesage = $_POST['status'];
-
 				if($type == 'Status') {
 					$post_status = $_POST['status'];
+					$this->facebook_publishing($fb, $group_id, $access_token, null, $post_status);
 				} elseif($type == 'Link') {
 					$link_url = $_POST['link_url'];
 					$link_preview_image = $_POST['link_preview_image'];
@@ -64,23 +65,23 @@ class Group extends CI_Controller {
 					$link_title = $_POST['link_title'];
 					$link_description = $_POST['link_description'];
 					$link_caption = $_POST['link_caption'];
-					$this->facebook_publishing($fb, $page_id, $page_token, $link_url, $link_message);
+					$this->facebook_publishing($fb, $group_id, $access_token, $link_url, $link_message);
 				} elseif($type == 'Photo') {
 					$photo_image_url = $_POST['photo_image_url'];
 					$photo_description = $_POST['photo_description'];
-					$this->facebook_publishing($fb, $page_id, $page_token, $photo_image_url, $photo_description);
+					$this->facebook_publishing($fb, $group_id,  $access_token, $photo_image_url, $photo_description);
 				} elseif($type == 'Video') {
 					$video_url = $_POST['video_url'];
 					// $video_title = $_POST['video_title'];
 					$video_description = $_POST['video_description'];
-					$this->facebook_publishing($fb, $page_id, $page_token, $video_url, $video_description);
+					$this->facebook_publishing($fb, $group_id,  $access_token, $video_url, $video_description);
 					// die('vvv');
 				} 
 			}
 		}
 
 		$this->load->view('layouts/partial_top', $data);
-		$this->load->view('page/post', $data);	
+		$this->load->view('group/post', $data);	
 		$this->load->view('layouts/partial_bottom');
 	}
 

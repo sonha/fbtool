@@ -416,7 +416,7 @@
             <li><a href="#"><i class="fa fa-instagram"></i>Instagram</a></li>
           </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview <?php if(in_array($this->uri->segment(1), array('page','post')))  { echo 'active'; }?>">
           <a href="#">
             <i class="fa fa-search-plus"></i>
             <span>Auto Schedule</span>
@@ -426,15 +426,15 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="<?php echo base_url() ?>assets/AdminLTE/pages/UI/general.html"><i class="fa fa-pinterest"></i> Pinterest</a></li>
-            <li>
+            <li class="<?php if(in_array($this->uri->segment(1), array('page','post')))  { echo 'active'; }?>">
                   <a href="#"><i class="fa fa-facebook"></i> Facebook
                     <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
                     </span>
                   </a>
                   <ul class="treeview-menu">
-                    <li><a href="<?php echo base_url().'page/schedule';?>"><i class="fa fa-circle-o"></i> List Schedule</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Group Fan Page</a></li>
+                    <li class="<?php if(current_url() == base_url().'page/post') { echo 'active'; }?>"><a href="<?php echo base_url().'page/post';?>"><i class="fa fa-circle-o"></i> Page Schedule</a></li>
+                    <li class="<?php if(current_url() == base_url().'group/post') { echo 'active'; }?>"><a href="<?php echo base_url().'group/post';?>"><i class="fa fa-circle-o"></i> Group Schedule</a></li>
                   </ul>
                 </li>
             <li><a href="#"><i class="fa fa-youtube"></i>Youtube</a></li>

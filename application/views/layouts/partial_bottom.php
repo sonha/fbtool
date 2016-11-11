@@ -282,8 +282,56 @@
             $('#title_result').html('');
     }
 
+    function getListData(pageAfter = null, stt = 0) {
+            if (pageAfter == null) {
+                $('#data_result').html('');
+            }
+            var url = '<?php echo base_url();?>/tool/ajaxGetData';
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    content: $('#content').val(),
+                    _csrf: 'SXFpVFVIQWsWGgwnAwQPCAQBNhYnfQ1ZejshGzQ5AwErASoLLSMNUw=='
+                },
+                success: function (result) {
+                    var data = $.parseJSON(result);
+                    console.log(data);
+
+                    if (data.length > 0) {
+                        var totalRerult = stt + data.length;
+                        $('#title_result').html('Tìm thấy <span style="color: red">' + totalRerult + '</span> comments phù hợp');
+                    }
+                    if (data != []) {
+                      console.log(pageAfter);
+                        var i;
+                        for (i = 0; i < data.length; i++) {
+                            var html = '';
+                            html += '<tr role="row" class="odd">'
+                                + '<td>' + (++stt) + '</td>'
+                                + '<td>' + data[i] + '</td>'
+                                + '<td><button type="button" class="btn btn-block btn-success">Lưu vào danh sách</button></td>'
+                                + '</tr>';
+                            $('#data_result').append(html);
+                        }
+                        if (pageAfter != null && pageAfter != '') {
+                            console.log(stt);
+                            getListComment(pageAfter, stt);
+
+                        } else {
+                            hideProcess();
+                            showTitleResult();
+                        }
+                    } else {
+                        $('#data_result').html('');
+                        hideProcess();
+                        // showTitleResult();
+                    }
+                }
+            });
+        }
+
     function getListComment(pageAfter = null, stt = 0) {
-          //   ĐÂY LÀ JAVASCRIPT ( ĐÃ CẢI TIẾN)
             if (pageAfter == null) {
                 $('#data_result').html('');
             }

@@ -121,22 +121,7 @@ class Page extends CI_Controller {
 					$this->facebook_publishing($fb, $page_id, $page_token, $video_url, $video_description);
 					// die('vvv');
 				} 
-
-
-
-				// $post = $fb->post('/'.$page_id .'/feed',
-		  //                array('message' => $mesage,
-		  //                       'link' => 'https://www.youtube.com/watch?v=KHCrxTkEsOY',
-		  //                       // 'published' => false,
-		  //                       // 'place' => $place,
-		  //                       // 'scheduled_publish_time' => $now
-		  //                 ),
-		  //                 $page_token);
-			 //    $post = $post->getGraphNode()->asArray();
-			    
 			}
-
-			
 		}
 
 		$this->load->view('layouts/partial_top', $data);

@@ -37,6 +37,14 @@ class Tool extends CI_Controller {
 		$this->load->view('layouts/partial_bottom');
 	}
 
+	public function data() {
+		$data['user'] = $this->user_info;
+		$data['title'] = "Get Comment Tool";
+		$this->load->view('layouts/partial_top', $data);
+		$this->load->view('tool/filter_data');	
+		$this->load->view('layouts/partial_bottom');
+	}
+
 	public function ajaxGetComment() {	
 		$after = isset($_POST['pageAfter']) ? $_POST['pageAfter'] : '';
 		$sort_by = isset($_POST['sort_by']) ? $_POST['sort_by'] : '';

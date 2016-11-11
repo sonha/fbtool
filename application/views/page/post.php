@@ -7,7 +7,7 @@
           <div class="col-md-6 pull-right">
             <div class="form-group">
                 <label>Select Page</label>
-                <select class="form-control select2" name="page_info" style="width: 100%;">
+                <select class="form-control select2" multiple="multiple" data-placeholder="Select Pages" name="page_info[]" style="width: 100%;">
                   <?php foreach ($pages['data'] as $key => $value) { ?>
                     <option value="<?php echo $value['id'].'-'.$value['access_token'];?>"><?php echo $value['name'];?></option>
                   <?php }?>

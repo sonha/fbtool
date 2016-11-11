@@ -34,23 +34,26 @@ class Page extends CI_Controller {
 		$data['pages'] = $this->facebook->request('get', '/me/accounts?limit=1000');
 
 		if(isset($_POST['submit'])) {
-			// var_dump($_POST);die;
-			$page_info = $_POST['page_info'];  // select co value dang : page_id-page_access_token de tien lay token
-			$page_id = explode('-', $page_info)[0];
-			$page_token = explode('-', $page_info)[1];
-			$fb = $this->facebook->object();
-			$mesage = $_POST['status'];
+			$all_page_info = $_POST['page_info'];  // select co value dang : page_id-page_access_token de tien lay token
+			foreach($all_page_info as $key => $page_info) {
+				$page_id = explode('-', $page_info)[0];
+				$page_token = explode('-', $page_info)[1];
+				$fb = $this->facebook->object();
+				$mesage = $_POST['status'];
 
-			$post = $fb->post('/'.$page_id .'/feed',
-	                 array('message' => $mesage,
-	                        'link' => 'https://www.youtube.com/watch?v=b1wptj5zmGo',
-	                        // 'published' => false,
-	                        // 'place' => $place,
-	                        // 'scheduled_publish_time' => $now
-	                  ),
-	                  $page_token);
-		    $post = $post->getGraphNode()->asArray();
-		    print_r($post);die;
+				$post = $fb->post('/'.$page_id .'/feed',
+		                 array('message' => $mesage,
+		                        'link' => 'https://www.youtube.com/watch?v=KHCrxTkEsOY',
+		                        // 'published' => false,
+		                        // 'place' => $place,
+		                        // 'scheduled_publish_time' => $now
+		                  ),
+		                  $page_token);
+			    $post = $post->getGraphNode()->asArray();
+			    
+			}
+			
+			
 		}
 
 		$this->load->view('layouts/partial_top', $data);

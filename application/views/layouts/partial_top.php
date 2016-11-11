@@ -35,6 +35,8 @@
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/AdminLTE/plugins/timepicker/bootstrap-timepicker.min.css">
   <!-- Select2 -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/AdminLTE/plugins/select2/select2.min.css">
+
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/AdminLTE/dist/css/AdminLTE.min.css">
   <!-- Theme style -->
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->

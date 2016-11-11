@@ -434,7 +434,13 @@
     });
   });
 </script>
-
+<script type="text/javascript">
+  $("ul.nav-tabs li").on('click', 'a', function(e) {
+    var type = this.text;
+    $('input[name="type"]').val(type);
+   document.getElementById("schedule_form").reset();
+});
+</script>
 
 </body>
 </html>

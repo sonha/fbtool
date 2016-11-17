@@ -8,7 +8,7 @@ class Hello extends CI_Controller
  
   public function greet($name)
   {
-   echo "Hello, $name" . PHP_EOL;
+   		echo "Hello, $name" . PHP_EOL;
   }
 
   public function greet_new($name) { 

@@ -13,6 +13,8 @@ class Tool extends CI_Controller {
 			if (!isset($user['error'])) {
 				$user_info = $user;
 			}
+		} else {
+			redirect('user/login', 'refresh');
 		}
 		// Load library and url helper
 		$this->load->library('facebook');

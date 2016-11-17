@@ -23,54 +23,6 @@ class Page extends CI_Controller {
 		$this->user_info = $user_info;
 	}
 
-	public function test() {
-		$data['user'] = $this->user_info;
-		$this->load->view('layouts/partial_top', $data);
-		$this->load->view('page/test');	
-		$this->load->view('layouts/partial_bottom');
-	}
-
-	// public function facebook_publishing_link($fb = null, $page_id = null, $page_token = null, $url = null, $link_message = null) {
-	// 	// var_dump($link_message);die;
-	// 	$post = $fb->post('/'.$page_id .'/feed',
-	// 	                 array( 
-	// 	                 		'message' => $link_message,
-	// 	                        'link' => $url,
-	// 	                        // 'description' => 'Day la description',// Hiển thị nếu bài viết ko có description
-	// 	                        // 'published' => false,
-	// 	                        // 'place' => $place,
-	// 	                        // 'scheduled_publish_time' => $now
-	// 	                  ),
-	// 	                  $page_token);
-	// 	return $post = $post->getGraphNode()->asArray();
-	// }
-
-	// public function facebook_publishing_photo($fb = null, $page_id = null, $page_token = null, $url = null, $description = null) {
-	// 	$post = $fb->post('/'.$page_id .'/feed',
-	// 	                 array('message' => $description,
-	// 	                        // 'source' => $video_url,
-	// 	                        'url' => $url,
-	// 	                        // 'published' => false,
-	// 	                        // 'place' => $place,
-	// 	                        // 'scheduled_publish_time' => $scheduled_publish_time
-	// 	                  ),
-	// 	                  $page_token);
-	// 	return $post = $post->getGraphNode()->asArray();
-	// }
-
-	// public function facebook_publishing_video($fb = null, $page_id = null, $page_token = null, $url = null, $description = null) {
-	// 	$post = $fb->post('/'.$page_id .'/feed',
-	// 	                 array('message' => $description,
-	// 	                        // 'source' => $video_url,
-	// 	                        'link' => $url,
-	// 	                        // 'published' => false,
-	// 	                        // 'place' => $place,
-	// 	                        // 'scheduled_publish_time' => $scheduled_publish_time
-	// 	                  ),
-	// 	                  $page_token);
-	// 	return $post = $post->getGraphNode()->asArray();
-	// }
-
 	public function facebook_publishing($fb = null, $page_id = null, $page_token = null, $url = null, $description = null) {
 		$post = $fb->post('/'.$page_id .'/feed',
 		                 array('message' => $description,
@@ -84,6 +36,14 @@ class Page extends CI_Controller {
 		return $post = $post->getGraphNode()->asArray();
 	}
 
+	public function feed($id) {
+		$data['title'] = 'News Feed';
+		$data['user'] = $this->user_info;
+		$data['feed'] = $this->facebook->request('get', $id.'/feed?limit=10');
+		$this->load->view('layouts/partial_top', $data);
+		$this->load->view('page/feed', $data);	
+		$this->load->view('layouts/partial_bottom');
+	}
 
 	public function post() {
 		$data['title'] = 'Create Schedule';
@@ -119,7 +79,6 @@ class Page extends CI_Controller {
 					// $video_title = $_POST['video_title'];
 					$video_description = $_POST['video_description'];
 					$this->facebook_publishing($fb, $page_id, $page_token, $video_url, $video_description);
-					// die('vvv');
 				} 
 			}
 		}

@@ -7,6 +7,7 @@ class Group extends CI_Controller {
 	{
 		parent::__construct();
 		$user_info = array();
+		
 		if ($this->facebook->is_authenticated()) {
 			$user = $this->facebook->request('get', '/me?fields=id,name,email,picture,location ,link, bio');
 			$feed = $this->facebook->request('get', '/me/posts?limit=5');
@@ -16,7 +17,7 @@ class Group extends CI_Controller {
 		} else {
 			redirect('user/login', 'refresh');
 		}
-		// Load library and url helper
+
 		$this->load->library('facebook');
 		$this->load->library('form_validation');
 		$this->load->helper('url');
@@ -32,10 +33,18 @@ class Group extends CI_Controller {
 
 	public function facebook_publishing($fb = null, $group_id = null, $access_token = null, $url = null, $description = null) {
 		$post = $fb->post('/'.$group_id .'/feed',
-		                 array('message' => $description,
-		                        'link' => $url,
-		                  ));
-		return $post = $post->getGraphNode()->asArray();
+		                 array(
+		                 	'message' => $description,
+		                 	 'link' => $url,
+		                  ),
+		                  $access_token);
+		$post = $post->getGraphNode()->asArray();
+
+		if($post) {
+			$this->session->set_flashdata('message', 'Bai viet da duoc len lich thanh cong');
+		} else {
+			$this->session->set_flashdata('message', 'Bai viet chua duoc len lich, vui long thu lai');
+		}
 	}
 
 
@@ -43,12 +52,10 @@ class Group extends CI_Controller {
 		$data['title'] = 'Create Group Schedule';
 		$data['user'] = $this->user_info;
 		$access_token = $this->facebook->is_authenticated();
-		// var_dump($token);die;
 		$data['groups'] = $this->facebook->request('get', '/me/groups?limit=1000');
-		// var_dump($data['groups']);die;
+
 		if(isset($_POST['submit'])) {
 			$all_group_info = $_POST['group_info'];  
-			// var_dump($all_group_info);die;
 			$type = $_POST['type'];  
 
 			foreach($all_group_info as $key => $group_info) {
@@ -72,10 +79,8 @@ class Group extends CI_Controller {
 					$this->facebook_publishing($fb, $group_id,  $access_token, $photo_image_url, $photo_description);
 				} elseif($type == 'Video') {
 					$video_url = $_POST['video_url'];
-					// $video_title = $_POST['video_title'];
 					$video_description = $_POST['video_description'];
 					$this->facebook_publishing($fb, $group_id,  $access_token, $video_url, $video_description);
-					// die('vvv');
 				} 
 			}
 		}

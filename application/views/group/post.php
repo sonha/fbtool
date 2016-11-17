@@ -13,7 +13,7 @@
                 <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Video</a></li>
                 <li class="pull-right"></li>
               </ul>
-              <input type="hidden" name="type">
+              <input type="hidden" name="type" value="Status">
               <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
                   <div class="form-group">

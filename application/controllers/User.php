@@ -16,6 +16,7 @@ class User extends CI_Controller {
 		}
 		// Load library and url helper
 		$this->load->library('facebook');
+		$this->load->library('form_validation');
 		$this->load->helper('url');
 		$this->user_info = $user_info;
 	}
@@ -50,9 +51,11 @@ class User extends CI_Controller {
 	}
 
 	public function list_group() {
+
 		$data['title'] = 'List All Group';
 		$data['user'] = $this->user_info;
 		$data['groups'] = $this->facebook->request('get', '/me/groups?limit=1000');
+
 		$this->load->view('layouts/partial_top', $data);
 		$this->load->view('user/list_group', $data);	
 		$this->load->view('layouts/partial_bottom');
@@ -61,7 +64,18 @@ class User extends CI_Controller {
 	public function list_page() {
 		$data['title'] = 'List All Page';
 		$data['user'] = $this->user_info;
-		$data['pages'] = $this->facebook->request('get', '/me/accounts?limit=1000');
+
+		if(isset($_POST['submit'])) {
+			$search_name = $_POST['search_name'];
+			$data['pages'] = $this->facebook->request('get', 'search?q='.$search_name.'&type=page');	
+		} else {
+			$data['pages'] = $this->facebook->request('get', '/me/accounts?limit=1000');
+		}
+
+		foreach($data['pages']['data'] as $key => $value) {
+				$sub_info = $this->facebook->request('get', $data['pages']['data'][$key]['id'].'?fields=about,picture');
+				$data['pages']['data'][$key] = array_merge($data['pages']['data'][$key], $sub_info);
+		}
 		$this->load->view('layouts/partial_top', $data);
 		$this->load->view('user/list_page', $data);	
 		$this->load->view('layouts/partial_bottom');

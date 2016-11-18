@@ -77,10 +77,10 @@ class User extends CI_Controller {
 		// 	$sub_info = $this->facebook->request('get', $data['pages']['data'][$i]['id'].'?fields=about,picture');
 		// 	$data['pages']['data'][$key] = array_merge($data['pages']['data'][$i], $sub_info);
 		// }
-		
+
 		foreach($data['pages']['data'] as $key => $value) {
 				$sub_info = $this->facebook->request('get', $data['pages']['data'][$key]['id'].'?fields=about,picture');
-				$data['pages']['data'][$key] = array_merge($data['pages']['data'][$key], $sub_info);
+				$data['pages']['data'][$key]['other'] = $sub_info;
 		}
 		$this->load->view('layouts/partial_top', $data);
 		$this->load->view('user/list_page', $data);	

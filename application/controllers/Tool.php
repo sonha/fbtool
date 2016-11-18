@@ -18,6 +18,7 @@ class Tool extends CI_Controller {
 		}
 		// Load library and url helper
 		$this->load->library('facebook');
+		$this->load->library('pinterest');
 		$this->load->library('form_validation');
 		$this->load->helper('url');
 		$this->user_info = $user_info;
@@ -45,6 +46,25 @@ class Tool extends CI_Controller {
 		$this->load->view('layouts/partial_top', $data);
 		$this->load->view('tool/filter_data');	
 		$this->load->view('layouts/partial_bottom');
+	}
+
+		/**
+	* function get data to pinterst when you a scrolling page
+	* @param :string keyword is text serach
+	* @param :int position 
+	*/
+	public function pinterest() {
+		$data['user'] = $this->user_info;
+		$data['title'] = "Find Content by Pinterest";
+		// $p = new Pinterest();
+		// $p->login("hason61vn@gmail.com", "060854775");
+		// if( $p->is_logged_in() )
+		//     echo "Success, we're logged in\n";
+		// $p->search_pinterest('diabetes', 25);
+		$this->load->view('layouts/partial_top', $data);
+		$this->load->view('tool/pinterest');	
+		$this->load->view('layouts/partial_bottom');
+
 	}
 
 	public function ajaxGetData() {	

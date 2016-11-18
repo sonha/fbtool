@@ -43,7 +43,7 @@
                 <?php foreach($pages['data'] as $key => $value) { ?>
                   <tr>
                     <td><a href="https://www.facebook.com/<?php echo $value['id'];?>" target="_blank"><?php echo $value['name'];?></a></td>
-                    <td><img src="<?php echo $value['picture']['data']['url'];?>"></td>
+                    <td><img src="<?php echo $value['other']['picture']['data']['url'];?>"></td>
                     <td><?php echo $value['id'];?></td>
                     <td><?php echo isset($value['perms']) ? implode(' - ', $value['perms']) : '';?></td>
                     <td><?php echo isset($value['category']) ? $value['category'] : '';?></td>

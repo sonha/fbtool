@@ -48,6 +48,19 @@ class Tool extends CI_Controller {
 		$this->load->view('layouts/partial_bottom');
 	}
 
+
+		/**
+	* function get data to pinterst when you a scrolling page
+	* @param :string keyword is text serach
+	* @param :int position 
+	*/
+	public function youtube() {
+		$data['user'] = $this->user_info;
+		$data['title'] = "Find Content by Youtube";
+		$data['view'] = 'tool/search_youtube';
+		$this->load->view('layouts/codeto/main', $data);
+	}
+
 		/**
 	* function get data to pinterst when you a scrolling page
 	* @param :string keyword is text serach
@@ -56,15 +69,15 @@ class Tool extends CI_Controller {
 	public function pinterest() {
 		$data['user'] = $this->user_info;
 		$data['title'] = "Find Content by Pinterest";
-		// $p = new Pinterest();
-		// $p->login("hason61vn@gmail.com", "060854775");
-		// if( $p->is_logged_in() )
-		//     echo "Success, we're logged in\n";
-		// $p->search_pinterest('diabetes', 25);
+		$p = new Pinterest();
+		$p->login("hason61vn@gmail.com", "060854775");
+		if( $p->is_logged_in() )
+		    echo "Success, we're logged in\n";
+		$data = $p->search_pinterest('diabetes', 25);
+		var_dump($data);die;
 		$this->load->view('layouts/partial_top', $data);
 		$this->load->view('tool/pinterest');	
 		$this->load->view('layouts/partial_bottom');
-
 	}
 
 	public function ajaxGetData() {	

@@ -74,6 +74,14 @@
         <script src="<?php echo base_url() ?>assets/codeto/theme/assets/layouts/layout/scripts/demo.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url() ?>assets/codeto/theme/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url() ?>assets/codeto/theme/assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+                $(function(){
+                        var m = new Masonry($('.sonha').get()[0], {
+                                itemSelector: ".thumbnail"
+                        });
+
+                });
+        </script>
         <!-- END THEME LAYOUT SCRIPTS -->
     </body>
 

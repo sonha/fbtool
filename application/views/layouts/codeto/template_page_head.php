@@ -46,4 +46,5 @@
         <!-- BEGIN PAGE LEVEL PLUGINS -->
         <!-- <link href="<?php echo base_url() ?>assets/codeto/theme/assets/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css" /> -->
         <link rel="shortcut icon" href="favicon.ico" />
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>
     </head>

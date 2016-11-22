@@ -73,30 +73,36 @@
                                 </div>
                                 </form>
                                 <div class="col-lg-12">
-                                    <div class="row">
+                                    <div class="sonha">
                                         <?php foreach($videos as $key => $value) { ?>
-                                        <div class="col-md-3">
-                                            <div class="tile-container">
+                                        <div class="col-md-3 thumbnail" >
+                                            <div class="tile-container" style="margin-bottom:0px">
                                                 <div class="tile-thumbnail">
-                                                    <a href="https://www.youtube.com/watch?v=<?php echo $value['id'];?>">
+                                                    <a href="https://www.youtube.com/watch?v=<?php echo $value['id'];?>" target="_blank">
                                                         <img src="<?php echo $value['thumbnails']['modelData']['high']['url'];?>" />
                                                     </a>
                                                 </div>
                                                 <div class="tile-title">
                                                     <h3>
-                                                        <a href="https://www.youtube.com/watch?v=<?php echo $value['id'];?>"><?php echo $value['title']?></a>
+                                                        <a href="https://www.youtube.com/watch?v=<?php echo $value['id'];?>" target="_blank"><?php echo $value['title']?></a>
                                                     </h3>
-                                                    <a href="javascript:;">
-                                                        <i class="icon-question font-blue"></i>
-                                                    </a>
-                                                    <a href="javascript:;">
-                                                        <i class="icon-plus font-green-meadow"></i>
-                                                    </a>
+
+
                                                     <div class="tile-desc">
                                                         <p>Activity:
                                                             <a href="javascript:;">Bob Robson</a> -
                                                             <span class="font-grey-salt"><?php echo $value['publishedAt'];?></span>
                                                         </p>
+                                                        <div class="row" style="margin-top: 12px">
+                                                            <div class="pull-left">
+                                                                <a href="javascript:;" class="btn btn red btn-sm">
+                                                                    <i class="fa fa-calendar"></i>Schedule</a>
+                                                            </div>
+                                                            <div class="pull-right">
+                                                                <a href="javascript:;" class="btn btn yellow btn-sm">
+                                                                    <i class="fa fa-save"></i>Save</a>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

@@ -52,13 +52,20 @@ class Tool extends CI_Controller {
 		$this->load->view('layouts/partial_bottom');
 	}
 
+	public function youtube() {
+		$data['user'] = $this->user_info;
+		$data['title'] = "Find Content by Youtube";
+		$data['view'] = 'tool/search_youtube';
 
-		/**
+		$this->load->view('youtube', $data);
+	}
+
+	/**
 	* function get data to pinterst when you a scrolling page
 	* @param :string keyword is text serach
 	* @param :int position 
 	*/
-	public function youtube() {
+	public function youtube1() {
 		$data['user'] = $this->user_info;
 		$data['title'] = "Find Content by Youtube";
 		$data['view'] = 'tool/search_youtube';

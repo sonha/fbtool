@@ -33,7 +33,7 @@ class User extends CI_Controller {
 		$data['user'] = array();
 		if ($this->facebook->is_authenticated()) {
 			$user = $this->facebook->request('get', '/me?fields=id,name,email,picture,location ,link, bio');
-			$feed = $this->facebook->request('get', '/me/posts?limit=5');
+//			$feed = $this->facebook->request('get', '/me/posts?limit=5');
 			if (!isset($user['error'])) {
 				$data['user'] = $user;
 			}
@@ -59,7 +59,7 @@ class User extends CI_Controller {
 		$data['user'] = array();
 		if ($this->facebook->is_authenticated()) {
 			$user = $this->facebook->request('get', '/me?fields=id,name,email,picture,location ,link, bio');
-			$feed = $this->facebook->request('get', '/me/posts?limit=5');
+//			$feed = $this->facebook->request('get', '/me/posts?limit=5');
 			if (!isset($user['error'])) {
 				$data['user'] = $user;
 			}

@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+if (!file_exists(APPPATH.'/google/vendor/autoload.php')) {
+  throw new \Exception('please run "composer require google/apiclient:~2.0" in "' . __DIR__ .'"');
+} 
 
+require_once APPPATH.'/google/vendor/autoload.php';
 class Tool extends CI_Controller {
 
 	public function __construct()
@@ -58,6 +62,55 @@ class Tool extends CI_Controller {
 		$data['user'] = $this->user_info;
 		$data['title'] = "Find Content by Youtube";
 		$data['view'] = 'tool/search_youtube';
+
+		$DEVELOPER_KEY = 'AIzaSyA0_xsNsPTIW2TAZDSh5pdS2qV-dK-56lk';
+
+  		$client = new Google_Client();
+	    $client->setDeveloperKey($DEVELOPER_KEY);
+
+	    // Define an object that will be used to make all API requests.
+	    $youtube = new Google_Service_YouTube($client);
+
+	    $htmlBody = '';
+	    try {
+	    // Call the search.list method to retrieve results matching the specified query term.
+	    $searchResponse = $youtube->search->listSearch('id,snippet', array(
+	      'q' => 'Zidane',
+	      'maxResults' => 25,
+	    ));
+
+	    $videos = '';
+	    $channels = '';
+	    $playlists = '';
+	    echo '<pre>';
+	    var_dump($searchResponse['items']);die;
+	    // Add each result to the appropriate list, and then display the lists of matching videos, channels, and playlists.
+	    foreach ($searchResponse['items'] as $searchResult) {
+	    	var_dump($searchResult);die;
+	      switch ($searchResult['id']['kind']) {
+	        case 'youtube#video':
+	          $videos .= sprintf('<li>%s (%s)</li>',
+	              $searchResult['snippet']['title'], $searchResult['id']['videoId']);
+	          break;
+	        case 'youtube#channel':
+	          $channels .= sprintf('<li>%s (%s)</li>',
+	              $searchResult['snippet']['title'], $searchResult['id']['channelId']);
+	          break;
+	        case 'youtube#playlist':
+	          $playlists .= sprintf('<li>%s (%s)</li>',
+	              $searchResult['snippet']['title'], $searchResult['id']['playlistId']);
+	          break;
+	      }
+	    } 
+	    } catch (Google_Service_Exception $e) {
+    		$htmlBody .= sprintf('<p>A service error occurred: <code>%s</code></p>',
+      		htmlspecialchars($e->getMessage()));
+  		} catch (Google_Exception $e) {
+    		$htmlBody .= sprintf('<p>An client error occurred: <code>%s</code></p>',
+      		htmlspecialchars($e->getMessage()));
+  		}
+
+
 		$this->load->view('layouts/codeto/main', $data);
 	}
 

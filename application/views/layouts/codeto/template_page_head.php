@@ -42,13 +42,8 @@
         <link href="<?php echo base_url() ?>assets/codeto/theme/assets/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url() ?>assets/codeto/theme/assets/layouts/layout/css/themes/darkblue.min.css" rel="stylesheet" type="text/css" id="style_color" />
         <link href="<?php echo base_url() ?>assets/codeto/theme/assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
-        <!-- END THEME LAYOUT STYLES -->
 
-        <!-- END GLOBAL MANDATORY STYLES -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
         <!-- <link href="<?php echo base_url() ?>assets/codeto/theme/assets/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css" /> -->
-        <link href="<?php echo base_url() ?>assets/codeto/theme/assets/pages/css/search.min.css" rel="stylesheet" type="text/css" />
-        <!-- END PAGE LEVEL STYLES -->
-
-        <link rel="shortcut icon" href="favicon.ico" /> 
+        <link rel="shortcut icon" href="favicon.ico" />
     </head>

@@ -52,7 +52,7 @@ class Tool extends CI_Controller {
 		$this->load->view('layouts/partial_bottom');
 	}
 
-	public function youtube() {
+	public function youtube1() {
 		$data['user'] = $this->user_info;
 		$data['title'] = "Find Content by Youtube";
 		$data['view'] = 'tool/search_youtube';
@@ -65,7 +65,7 @@ class Tool extends CI_Controller {
 	* @param :string keyword is text serach
 	* @param :int position 
 	*/
-	public function youtube1() {
+	public function youtube() {
 		$data['user'] = $this->user_info;
 		$data['title'] = "Find Content by Youtube";
 		$data['view'] = 'tool/search_youtube';
@@ -82,30 +82,41 @@ class Tool extends CI_Controller {
 	    try {
 	    // Call the search.list method to retrieve results matching the specified query term.
 	    $searchResponse = $youtube->search->listSearch('id,snippet', array(
-	      'q' => 'Zidane',
+	      'q' => isset($_POST['search_name']) ? $_POST['search_name'] : 'Techmaster',
 	      'maxResults' => 25,
 	    ));
 
 	    $videos = '';
 	    $channels = '';
 	    $playlists = '';
-	    echo '<pre>';
-	    var_dump($searchResponse['items']);die;
+//	    echo '<pre>';
+//	    var_dump($searchResponse['items']);die;
 	    // Add each result to the appropriate list, and then display the lists of matching videos, channels, and playlists.
-	    foreach ($searchResponse['items'] as $searchResult) {
-	    	var_dump($searchResult);die;
+	    foreach ($searchResponse['items'] as $key => $searchResult) {
+            //$searchResult['id'] ==
+            //object(Google_Service_YouTube_ResourceId)#111 (7) { ["channelId"]=> NULL ["kind"]=> string(13) "youtube#video" ["playlistId"]=> NULL ["videoId"]=> string(11) "C7mXGMcpA0g" ["internal_gapi_mappings":protected]=> array(0) { } ["modelData":protected]=> array(0) { } ["processed":protected]=> array(0) { } }
 	      switch ($searchResult['id']['kind']) {
 	        case 'youtube#video':
-	          $videos .= sprintf('<li>%s (%s)</li>',
-	              $searchResult['snippet']['title'], $searchResult['id']['videoId']);
+                $videos[$key]['title'] = $searchResult['snippet']['title'];
+                $videos[$key]['publishedAt'] = $searchResult['snippet']['publishedAt'];
+                $videos[$key]['id'] = $searchResult['id']['videoId'];
+                $videos[$key]['thumbnails'] = $searchResult['snippet']['thumbnails'];
+//                echo '<pre>';
+//                var_dump($searchResult['snippet']['thumbnails']['modelData']);die;
 	          break;
 	        case 'youtube#channel':
-	          $channels .= sprintf('<li>%s (%s)</li>',
-	              $searchResult['snippet']['title'], $searchResult['id']['channelId']);
+//	          $channels .= sprintf('<li>%s (%s)</li>',
+//	              $searchResult['snippet']['title'], $searchResult['id']['channelId']);
+                $channels[$key]['title'] = $searchResult['snippet']['title'];
+                $channels[$key]['id'] = $searchResult['id']['videoId'];
+                $channels[$key]['thumbnails'] = $searchResult['snippet']['thumbnails'];
 	          break;
 	        case 'youtube#playlist':
-	          $playlists .= sprintf('<li>%s (%s)</li>',
-	              $searchResult['snippet']['title'], $searchResult['id']['playlistId']);
+//	          $playlists .= sprintf('<li>%s (%s)</li>',
+//	              $searchResult['snippet']['title'], $searchResult['id']['playlistId']);
+                  $playlists[$key]['title'] = $searchResult['snippet']['title'];
+                  $playlists[$key]['id'] = $searchResult['id']['videoId'];
+                  $playlists[$key]['thumbnails'] = $searchResult['snippet']['thumbnails'];
 	          break;
 	      }
 	    } 
@@ -117,6 +128,9 @@ class Tool extends CI_Controller {
       		htmlspecialchars($e->getMessage()));
   		}
 
+  		$data['videos'] = $videos;
+  		$data['channels'] = $channels;
+  		$data['playlists'] = $playlists;
 
 		$this->load->view('layouts/codeto/main', $data);
 	}

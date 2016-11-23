@@ -838,7 +838,8 @@ class Pinterest {
                     $_SESSION['bookmarks'] = json_encode($cursor);
                 }
             }
-            echo json_encode($data);
+//            echo json_encode($data);
+            return $data;
 
         } else {
              $res = \curl_exec($ch);
@@ -847,7 +848,139 @@ class Pinterest {
 
             $result = $response['resource_data_cache'][0]['data'];
 
-            var_dump($result);die;
+            if ($result) {
+                foreach($result as $row)
+                {
+                    $save = !empty($row['aggregated_pin_data']['aggregated_stats']['saves']) ? $row['aggregated_pin_data']['aggregated_stats']['saves']: 0;
+                    $like = !empty($row['aggregated_pin_data']['aggregated_stats']['likes']) ? $row['aggregated_pin_data']['aggregated_stats']['likes']: 0;
+                    $comment = !empty($row['comment_count']) ? $row['comment_count'] : 0;
+
+                    $data[] = array(
+                        'pin_id' => $row['id'],
+                        'image'  => $row['images']['236x']['url'],
+                        'link'   => $row['link'],
+                        'description' => $row['description'],
+                        'save'  => $save,
+                        'like'  => $like,
+                        'comment' => $comment,
+                        'pinner_name' => $row['pinner']['full_name'],
+                        'pinner_img' => $row['pinner']['image_small_url'],
+                        'pinner_url' => $row['board']['url'],
+                        'created_at' => strtotime($row['created_at']),
+                    );
+                }
+
+                $cursor = $response['resource'];
+                $_SESSION['bookmarks'] = json_encode($cursor);
+                return $data;
+            }
+        }
+    }
+
+    public function search_pinterest_json($keyword = null, $position = 0) {
+        // Can't do anything if we're not logged in
+        if( !$this->is_logged_in )
+            return Pinterest::NOT_LOGGED_IN;
+
+        $keyword_arr = explode(' ',$keyword);
+        $source_url = '/search/pins/?q='.rawurlencode($keyword).'&rs=typed';
+        foreach($keyword_arr as $key=>$value){
+            $source_url .= '&'.$key.'='.$value.'%7Ctyped';
+        }
+        if ($position == 0) {
+            $post  = array(
+                'source_url' => $source_url,
+                'data' =>'{"options":{"layout":null,"places":false,"constraint_string":null,"query":"'.$keyword.'","scope":"pins","bookmarks":[]}}',
+            );
+        } else{
+            $bookmarks= isset($_SESSION['bookmarks']) ? $_SESSION['bookmarks'] : '';
+            if ($bookmarks) {
+                $post  = array('source_url' => $source_url,
+                    'data' => $bookmarks );
+            } else {
+                $post  = array(
+                    'source_url' => $source_url,
+                    'data' =>'{"options":{"layout":null,"places":false,"constraint_string":null,"query":"'.$keyword.'","scope":"pins","bookmarks":[]}}',
+                );
+            }
+        }
+
+        // Now set up the CURL call
+        $ch = \curl_init($this->search_pin_url);
+        \curl_setopt_array($ch, array(
+            CURLOPT_COOKIEFILE => $this->cookie_jar,
+            CURLOPT_COOKIEJAR => $this->cookie_jar,
+            CURLOPT_USERAGENT => "Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0",
+            // CURLOPT_REFERER => "https://www.pinterest.com/pin/{$pin_id}/",
+            CURLOPT_REFERER => "https://www.pinterest.com/",
+            CURLOPT_HTTPHEADER => array(
+                'Host: www.pinterest.com',
+                'Accept: application/json, text/javascript, */*; q=0.01',
+                'Accept-Language: en-US,en;q=0.5',
+                'DNT: 1',
+                'Content-Type: application/x-www-form-urlencoded; charset=UTF-8',
+                'X-Pinterest-AppState: active',
+                'X-CSRFToken: ' . $this->csrf_token,
+                'X-NEW-APP: 1',
+                'X-APP-VERSION: 04cf8cc',
+                'X-Requested-With: XMLHttpRequest'
+            ),
+            CURLOPT_POST => true,
+            CURLOPT_HEADER => 0,
+            CURLOPT_POSTFIELDS => http_build_query($post),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_SSL_VERIFYPEER => false,   // remove me later
+            CURLOPT_SSL_VERIFYHOST => 2,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_TIMEOUT => 300
+        ));
+
+        if ($position == 0) {
+            for($i=0;$i<1;$i++) {
+                // Run the CURL call
+                $res = \curl_exec($ch);
+                \curl_close($ch);
+                $response = json_decode($res, TRUE);
+                $result = $response['resource_data_cache'][0]['data'];
+                // var_dump(  $result);die;
+
+                if ($result) {
+                    foreach($result as $row)
+                    {
+                        $save = !empty($row['aggregated_pin_data']['aggregated_stats']['saves']) ? $row['aggregated_pin_data']['aggregated_stats']['saves']: 0;
+                        $like = !empty($row['aggregated_pin_data']['aggregated_stats']['likes']) ? $row['aggregated_pin_data']['aggregated_stats']['likes']: 0;
+                        $comment = !empty($row['comment_count']) ? $row['comment_count'] : 0;
+
+                        $data[] = array(
+                            'pin_id' => $row['id'],
+                            'image'  => $row['images']['474x']['url'],
+                            'link'   => $row['link'],
+                            'description' => $row['description'],
+                            'save'  => $save,
+                            'like'  => $like,
+                            'comment' => $comment,
+                            'pinner_name' => $row['pinner']['full_name'],
+                            'pinner_img' => $row['pinner']['image_small_url'],
+                            'pinner_url' => $row['board']['url'],
+                            'created_at' => strtotime($row['created_at']),
+                        );
+                    }
+
+                    $cursor = $response['resource'];
+                    array_shift($cursor);
+                    $post['data'] = json_encode($cursor);
+                    $_SESSION['bookmarks'] = json_encode($cursor);
+                }
+            }
+            echo json_encode($data);
+
+        } else {
+            $res = \curl_exec($ch);
+            \curl_close($ch);
+            $response = json_decode($res, TRUE);
+
+            $result = $response['resource_data_cache'][0]['data'];
+
             if ($result) {
                 foreach($result as $row)
                 {

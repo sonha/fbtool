@@ -1,4 +1,9 @@
 <?php
+function d($param) {
+    echo '<pre>';
+    var_dump($param);
+    die();
+}
 /**
  * CodeIgniter
  *
@@ -92,5 +97,4 @@ class CI_Controller {
 	{
 		return self::$instance;
 	}
-
 }

@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+if (!file_exists(APPPATH.'/google/vendor/autoload.php')) {
+  throw new \Exception('please run "composer require google/apiclient:~2.0" in "' . __DIR__ .'"');
+} 
 
+require_once APPPATH.'/google/vendor/autoload.php';
 class Tool extends CI_Controller {
 
 	public function __construct()
@@ -48,6 +52,81 @@ class Tool extends CI_Controller {
 		$this->load->view('layouts/partial_bottom');
 	}
 
+	/**
+	* function get data to pinterst when you a scrolling page
+	* @param :string keyword is text serach
+	* @param :int position 
+	*/
+	public function youtube() {
+		$data['user'] = $this->user_info;
+		$data['title'] = "Find Content by Youtube";
+		$data['view'] = 'tool/search_youtube';
+
+		$DEVELOPER_KEY = 'AIzaSyA0_xsNsPTIW2TAZDSh5pdS2qV-dK-56lk';
+
+  		$client = new Google_Client();
+	    $client->setDeveloperKey($DEVELOPER_KEY);
+
+	    // Define an object that will be used to make all API requests.
+	    $youtube = new Google_Service_YouTube($client);
+
+	    $htmlBody = '';
+	    try {
+	    // Call the search.list method to retrieve results matching the specified query term.
+	    $searchResponse = $youtube->search->listSearch('id,snippet', array(
+	      'q' => isset($_POST['search_name']) ? $_POST['search_name'] : 'Techmaster',
+	      'maxResults' => 25,
+	    ));
+
+	    $videos = '';
+	    $channels = '';
+	    $playlists = '';
+//	    echo '<pre>';
+//	    var_dump($searchResponse['items']);die;
+	    // Add each result to the appropriate list, and then display the lists of matching videos, channels, and playlists.
+	    foreach ($searchResponse['items'] as $key => $searchResult) {
+            //$searchResult['id'] ==
+            //object(Google_Service_YouTube_ResourceId)#111 (7) { ["channelId"]=> NULL ["kind"]=> string(13) "youtube#video" ["playlistId"]=> NULL ["videoId"]=> string(11) "C7mXGMcpA0g" ["internal_gapi_mappings":protected]=> array(0) { } ["modelData":protected]=> array(0) { } ["processed":protected]=> array(0) { } }
+	      switch ($searchResult['id']['kind']) {
+	        case 'youtube#video':
+                $videos[$key]['title'] = $searchResult['snippet']['title'];
+                $videos[$key]['publishedAt'] = $searchResult['snippet']['publishedAt'];
+                $videos[$key]['id'] = $searchResult['id']['videoId'];
+                $videos[$key]['thumbnails'] = $searchResult['snippet']['thumbnails'];
+//                echo '<pre>';
+//                var_dump($searchResult['snippet']['thumbnails']['modelData']);die;
+	          break;
+	        case 'youtube#channel':
+//	          $channels .= sprintf('<li>%s (%s)</li>',
+//	              $searchResult['snippet']['title'], $searchResult['id']['channelId']);
+                $channels[$key]['title'] = $searchResult['snippet']['title'];
+                $channels[$key]['id'] = $searchResult['id']['videoId'];
+                $channels[$key]['thumbnails'] = $searchResult['snippet']['thumbnails'];
+	          break;
+	        case 'youtube#playlist':
+//	          $playlists .= sprintf('<li>%s (%s)</li>',
+//	              $searchResult['snippet']['title'], $searchResult['id']['playlistId']);
+                  $playlists[$key]['title'] = $searchResult['snippet']['title'];
+                  $playlists[$key]['id'] = $searchResult['id']['videoId'];
+                  $playlists[$key]['thumbnails'] = $searchResult['snippet']['thumbnails'];
+	          break;
+	      }
+	    } 
+	    } catch (Google_Service_Exception $e) {
+    		$htmlBody .= sprintf('<p>A service error occurred: <code>%s</code></p>',
+      		htmlspecialchars($e->getMessage()));
+  		} catch (Google_Exception $e) {
+    		$htmlBody .= sprintf('<p>An client error occurred: <code>%s</code></p>',
+      		htmlspecialchars($e->getMessage()));
+  		}
+
+  		$data['videos'] = $videos;
+  		$data['channels'] = $channels;
+  		$data['playlists'] = $playlists;
+
+		$this->load->view('layouts/codeto/main', $data);
+	}
+
 		/**
 	* function get data to pinterst when you a scrolling page
 	* @param :string keyword is text serach
@@ -56,15 +135,14 @@ class Tool extends CI_Controller {
 	public function pinterest() {
 		$data['user'] = $this->user_info;
 		$data['title'] = "Find Content by Pinterest";
-		// $p = new Pinterest();
-		// $p->login("hason61vn@gmail.com", "060854775");
-		// if( $p->is_logged_in() )
-		//     echo "Success, we're logged in\n";
-		// $p->search_pinterest('diabetes', 25);
-		$this->load->view('layouts/partial_top', $data);
-		$this->load->view('tool/pinterest');	
-		$this->load->view('layouts/partial_bottom');
-
+        $data['view'] = 'tool/search_pinterest';
+		$p = new Pinterest();
+		$p->login("hason61vn@gmail.com", "060854775");
+		if( $p->is_logged_in() )
+		    echo "Success, we're logged in\n";
+		$data['data'] = $p->search_pinterest(isset($_POST['search_name']) ? $_POST['search_name'] : 'Codeto Vietnam', 25);
+        d($data['data']);
+        $this->load->view('layouts/codeto/main', $data);
 	}
 
 	public function ajaxGetData() {	

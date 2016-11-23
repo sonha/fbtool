@@ -21,6 +21,26 @@ class User extends CI_Controller {
 		$this->user_info = $user_info;
 	}
 
+	public function test() {
+		$data['title'] = 'test';
+		$data['view'] = 'user/test';
+		$this->load->view('layouts/codeto/main', $data);
+	}
+
+	public function dashboard() {
+		$data['title'] = 'Admin Dashboard - Codeto Master Tool';
+		$data['view'] = 'dashboard';
+		$data['user'] = array();
+		if ($this->facebook->is_authenticated()) {
+			$user = $this->facebook->request('get', '/me?fields=id,name,email,picture,location ,link, bio');
+//			$feed = $this->facebook->request('get', '/me/posts?limit=5');
+			if (!isset($user['error'])) {
+				$data['user'] = $user;
+			}
+		}
+		$this->load->view('layouts/codeto/main', $data);
+	}
+
 	public function login() {
 		$data['user'] = array();
 		
@@ -29,7 +49,7 @@ class User extends CI_Controller {
 			if (!isset($user['error'])) {
 				$data['user'] = $user;
 			}
-			redirect('user/profile', 'refresh');
+			redirect('user/dashboard', 'refresh');
 		}
 
 		$this->load->view('user/login', $data);
@@ -39,7 +59,7 @@ class User extends CI_Controller {
 		$data['user'] = array();
 		if ($this->facebook->is_authenticated()) {
 			$user = $this->facebook->request('get', '/me?fields=id,name,email,picture,location ,link, bio');
-			$feed = $this->facebook->request('get', '/me/posts?limit=5');
+//			$feed = $this->facebook->request('get', '/me/posts?limit=5');
 			if (!isset($user['error'])) {
 				$data['user'] = $user;
 			}

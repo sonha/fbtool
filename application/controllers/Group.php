@@ -10,7 +10,6 @@ class Group extends CI_Controller {
 		
 		if ($this->facebook->is_authenticated()) {
 			$user = $this->facebook->request('get', '/me?fields=id,name,email,picture,location ,link, bio');
-			$feed = $this->facebook->request('get', '/me/posts?limit=5');
 			if (!isset($user['error'])) {
 				$user_info = $user;
 			}
@@ -47,7 +46,10 @@ class Group extends CI_Controller {
 		}
 	}
 
-
+    /**
+     * @todo : Schedule Post
+     * User: SonHA
+     */
 	public function post() {
 		$data['title'] = 'Create Group Schedule';
 		$data['user'] = $this->user_info;
@@ -61,17 +63,16 @@ class Group extends CI_Controller {
 			foreach($all_group_info as $key => $group_info) {
 				$group_id = $group_info;
 				$fb = $this->facebook->object();
-				$mesage = $_POST['status'];
 				if($type == 'Status') {
 					$post_status = $_POST['status'];
 					$this->facebook_publishing($fb, $group_id, $access_token, null, $post_status);
 				} elseif($type == 'Link') {
 					$link_url = $_POST['link_url'];
-					$link_preview_image = $_POST['link_preview_image'];
+//					$link_preview_image = $_POST['link_preview_image'];
 					$link_message = $_POST['link_message'];
-					$link_title = $_POST['link_title'];
-					$link_description = $_POST['link_description'];
-					$link_caption = $_POST['link_caption'];
+//					$link_title = $_POST['link_title'];
+//					$link_description = $_POST['link_description'];
+//					$link_caption = $_POST['link_caption'];
 					$this->facebook_publishing($fb, $group_id, $access_token, $link_url, $link_message);
 				} elseif($type == 'Photo') {
 					$photo_image_url = $_POST['photo_image_url'];

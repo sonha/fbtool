@@ -135,12 +135,13 @@ class Tool extends CI_Controller {
 	public function pinterest() {
 		$data['user'] = $this->user_info;
 		$data['title'] = "Find Content by Pinterest";
-        $data['view'] = 'tool/search_pinterest';
+//        $data['view'] = 'tool/search_pinterest';
+        $data['view'] = 'tool/search_pinterest_grid';
 		$p = new Pinterest();
 		$p->login("hason61vn@gmail.com", "060854775");
 		if( $p->is_logged_in() )
 		    echo "Success, we're logged in\n";
-		$data['data'] = $p->search_pinterest(isset($_POST['search_name']) ? $_POST['search_name'] : 'Codeto Vietnam', 25);
+		$data['data'] = $p->search_pinterest(isset($_POST['search_name']) ? $_POST['search_name'] : 'Diabetes', 25);
 //        d($data['data']);
         $this->load->view('layouts/codeto/main', $data);
 	}

@@ -36,6 +36,7 @@
         <!-- BEGIN PAGE LEVEL PLUGINS -->
         <!-- <link href="<?php echo base_url() ?>assets/codeto/theme/assets/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css" /> -->
         <link href="<?php echo base_url() ?>assets/codeto/theme/assets/pages/css/search.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo base_url() ?>assets/css/style.css" rel="stylesheet" type="text/css" />
         <!-- END PAGE LEVEL STYLES -->
 
         <!-- BEGIN THEME LAYOUT STYLES -->
@@ -46,5 +47,6 @@
         <!-- BEGIN PAGE LEVEL PLUGINS -->
         <!-- <link href="<?php echo base_url() ?>assets/codeto/theme/assets/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css" /> -->
         <link rel="shortcut icon" href="favicon.ico" />
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>
+<!--        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>-->
+        <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
     </head>

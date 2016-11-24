@@ -49,4 +49,11 @@
         <link rel="shortcut icon" href="favicon.ico" />
 <!--        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>-->
         <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+        <?php
+        if (isset($style)){
+            foreach ($style as $url){
+                echo "<link rel='stylesheet' href='" . $url . "'>";
+            }
+        }
+        ?>
     </head>

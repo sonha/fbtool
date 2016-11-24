@@ -841,7 +841,7 @@ class Pinterest {
 //            echo json_encode($data);
             return $data;
 
-        } else {
+         } else {
              $res = \curl_exec($ch);
                 \curl_close($ch);
              $response = json_decode($res, TRUE);

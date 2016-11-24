@@ -76,6 +76,14 @@
         <script src="<?php echo base_url() ?>assets/codeto/theme/assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
 
         <script src="<?php echo base_url() ?>assets/js/pinterest_grid.js"></script>
+
+        <?php
+        if (isset($scripts_footer)){
+                foreach ($scripts_footer as $url){
+                        echo "<script type='text/javascript' src='" . $url . "'></script>";
+                }
+        }
+        ?>
         <script>
                 $(document).ready(function() {
 

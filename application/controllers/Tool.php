@@ -135,6 +135,9 @@ class Tool extends CI_Controller {
 	public function pinterest() {
 		$data['user'] = $this->user_info;
 		$data['title'] = "Find Content by Pinterest";
+        $data['style'] = array();
+        $data['scripts'] = array();
+        $data['scripts_footer'] = array(base_url() . "assets/js/tool_pinterest.js");
 //        $data['view'] = 'tool/search_pinterest';
         $data['view'] = 'tool/search_pinterest_grid';
 		$p = new Pinterest();

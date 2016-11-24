@@ -1,0 +1,5 @@
+.GridItems.padItems.variableHeightLayout>.item, .GridItems.padItems.fixedHeightLayout>.item {
+    margin: 0 !important;
+    padding: 24px 12px !important;
+    width: 236px !important;
+}

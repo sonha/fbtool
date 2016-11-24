@@ -141,7 +141,7 @@ class Tool extends CI_Controller {
 		if( $p->is_logged_in() )
 		    echo "Success, we're logged in\n";
 		$data['data'] = $p->search_pinterest(isset($_POST['search_name']) ? $_POST['search_name'] : 'Codeto Vietnam', 25);
-        d($data['data']);
+//        d($data['data']);
         $this->load->view('layouts/codeto/main', $data);
 	}
 

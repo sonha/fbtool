@@ -127,6 +127,134 @@ class Tool extends CI_Controller {
 		$this->load->view('layouts/codeto/main', $data);
 	}
 
+	public function commentYoutube() {
+		$OAUTH2_CLIENT_ID = '255961942015-q6cdgpu3qoc9cdv1n1s41i752pm6otkb.apps.googleusercontent.com';
+		$OAUTH2_CLIENT_SECRET = '7y1GU7IwrTFfnjzcBM4z-Wvp';
+		/*  You can replace $VIDEO_ID with one of your videos' id, and text with the
+		 *  comment you want to be added.
+		 */
+		$VIDEO_ID = 'zj-aEwORdzk';
+		$TEXT = 'Bạn này hát hay thật';
+
+		$client = new Google_Client();
+		$client->setClientId($OAUTH2_CLIENT_ID);
+		$client->setClientSecret($OAUTH2_CLIENT_SECRET);
+		/*
+		 * This OAuth 2.0 access scope allows for full read/write access to the
+		 * authenticated user's account and requires requests to use an SSL connection.
+		 */
+		$client->setScopes('https://www.googleapis.com/auth/youtube.force-ssl');
+		$redirect = filter_var('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'],
+		    FILTER_SANITIZE_URL);
+		$client->setRedirectUri($redirect);
+
+		// Define an object that will be used to make all API requests.
+		$youtube = new Google_Service_YouTube($client);
+
+		// Check if an auth token exists for the required scopes
+		$tokenSessionKey = 'token-' . $client->prepareScopes();
+		if (isset($_GET['code'])) {
+		  if (strval($_SESSION['state']) !== strval($_GET['state'])) {
+		    die('The session state did not match.');
+		  }
+
+		  $client->authenticate($_GET['code']);
+		  $_SESSION[$tokenSessionKey] = $client->getAccessToken();
+		  header('Location: ' . $redirect);
+		}
+
+		if (isset($_SESSION[$tokenSessionKey])) {
+		  $client->setAccessToken($_SESSION[$tokenSessionKey]);
+		}
+
+		// Check to ensure that the access token was successfully acquired.
+		if ($client->getAccessToken()) {
+		  try {
+		    # All the available methods are used in sequence just for the sake of an example.
+
+		    // Call the YouTube Data API's commentThreads.list method to retrieve video comment threads.
+		    $videoCommentThreads = $youtube->commentThreads->listCommentThreads('snippet', array(
+		    'videoId' => $VIDEO_ID,
+		    'textFormat' => 'plainText',
+		    ));
+
+		    $parentId = $videoCommentThreads[0]['id'];
+
+		    # Create a comment snippet with text.
+		    $commentSnippet = new Google_Service_YouTube_CommentSnippet();
+		    $commentSnippet->setTextOriginal($TEXT);
+		    $commentSnippet->setParentId($parentId);
+
+		    # Create a comment with snippet.
+		    $comment = new Google_Service_YouTube_Comment();
+		    $comment->setSnippet($commentSnippet);
+
+		    # Call the YouTube Data API's comments.insert method to reply to a comment.
+		    # (If the intention is to create a new top-level comment, commentThreads.insert
+		    # method should be used instead.)
+		    $commentInsertResponse = $youtube->comments->insert('snippet', $comment);
+
+
+		    // Call the YouTube Data API's comments.list method to retrieve existing comment replies.
+		    $videoComments = $youtube->comments->listComments('snippet', array(
+		        'parentId' => $parentId,
+		        'textFormat' => 'plainText',
+		    ));
+
+		    // var_dump($videoComments[0]);die;
+
+		    if (empty($videoComments)) {
+		      $htmlBody .= "<h3>Can\'t get video comments.</h3>";
+		    } else {
+		      $videoComments[0]['snippet']['textOriginal'] = 'Bạn này hát hay thật';
+
+		      // Call the YouTube Data API's comments.update method to update an existing comment.
+		      // $videoCommentUpdateResponse = $youtube->comments->update('snippet', $videoComments[0]);
+
+		      // Call the YouTube Data API's comments.setModerationStatus method to set moderation
+		      // status of an existing comment.
+		      // $youtube->comments->setModerationStatus($videoComments[0]['id'], 'published');
+
+		      // // Call the YouTube Data API's comments.markAsSpam method to mark an existing comment as spam.
+		      // $youtube->comments->markAsSpam($videoComments[0]['id']);
+
+		      // // Call the YouTube Data API's comments.delete method to delete an existing comment.
+		      // $youtube->comments->delete($videoComments[0]['id']);
+		    }
+
+		    $htmlBody .= "<h3>Video Comment Replies</h3><ul>";
+		    foreach ($videoComments as $comment) {
+		      $htmlBody .= sprintf('<li>%s: "%s"</li>', $comment['snippet']['authorDisplayName'],
+		          $comment['snippet']['textOriginal']);
+		    }
+		    $htmlBody .= '</ul>';
+
+		    $htmlBody .= "<h2>Replied to a comment for</h2><ul>";
+		    $htmlBody .= sprintf('<li>%s: "%s"</li>',
+		        $commentInsertResponse['snippet']['authorDisplayName'],
+		        $commentInsertResponse['snippet']['textDisplay']);
+		    $htmlBody .= '</ul>';
+
+		    $htmlBody .= "<h2>Updated comment for</h2><ul>";
+		    $htmlBody .= sprintf('<li>%s: "%s"</li>',
+		        $videoCommentUpdateResponse['snippet']['authorDisplayName'],
+		        $videoCommentUpdateResponse['snippet']['textDisplay']);
+		    $htmlBody .= '</ul>';
+
+		  } catch (Google_Service_Exception $e) {
+		    $htmlBody .= sprintf('<p>A service error occurred: <code>%s</code></p>',
+		        htmlspecialchars($e->getMessage()));
+		  } catch (Google_Exception $e) {
+		    $htmlBody .= sprintf('<p>An client error occurred: <code>%s</code></p>',
+		        htmlspecialchars($e->getMessage()));
+		  }
+
+		  $_SESSION[$tokenSessionKey] = $client->getAccessToken();
+		} elseif ($OAUTH2_CLIENT_ID == 'REPLACE_ME') {
+			// Copy code to here  
+		}
+	}
+
 		/**
 	* function get data to pinterst when you a scrolling page
 	* @param :string keyword is text serach

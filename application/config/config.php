@@ -24,8 +24,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = '';
-$config['base_url'] = 'http://localhost/fbtool/';
 // $config['base_url'] = "http://".$_SERVER['HTTP_HOST'];
+// $config['base_url'] = 'http://localhost/fbtool';
+$config['base_url'] = "http://".$_SERVER['HTTP_HOST'].'/fbtool';
 
 
 // var_dump($config['base_url'] );die;

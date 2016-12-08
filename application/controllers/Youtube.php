@@ -106,6 +106,7 @@ class Youtube extends CI_Controller {
 	}
 
 	public function view($video_id) {
+		// d($video_id);
 		// die('fff');
 		// unset($_SESSION);die;
 		$data['user'] = $this->user_info;
@@ -121,6 +122,8 @@ class Youtube extends CI_Controller {
 		$client = new Google_Client();
 		$client->setClientId($OAUTH2_CLIENT_ID);
 		$client->setClientSecret($OAUTH2_CLIENT_SECRET);
+
+		// d($client);
 		/*
 		 * This OAuth 2.0 access scope allows for full read/write access to the
 		 * authenticated user's account and requires requests to use an SSL connection.
@@ -153,7 +156,7 @@ class Youtube extends CI_Controller {
 
 		// Check to ensure that the access token was successfully acquired.
 		if ($client->getAccessToken()) {
-			// die('vao day cmnr');
+			die('vao day cmnr');
 		  try {
 		    # All the available methods are used in sequence just for the sake of an example.
 

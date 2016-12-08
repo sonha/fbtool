@@ -128,6 +128,8 @@ class Tool extends CI_Controller {
 	}
 
 	public function commentYoutube() {
+		$data['user'] = $this->user_info;
+		$data['view'] = 'tool/comment_youtube';
 		$OAUTH2_CLIENT_ID = '255961942015-q6cdgpu3qoc9cdv1n1s41i752pm6otkb.apps.googleusercontent.com';
 		$OAUTH2_CLIENT_SECRET = '7y1GU7IwrTFfnjzcBM4z-Wvp';
 		/*  You can replace $VIDEO_ID with one of your videos' id, and text with the
@@ -144,6 +146,8 @@ class Tool extends CI_Controller {
 		 * authenticated user's account and requires requests to use an SSL connection.
 		 */
 		$client->setScopes('https://www.googleapis.com/auth/youtube.force-ssl');
+		// d( $_SERVER['HTTP_HOST']);
+		// d( $_SERVER['PHP_SELF']);
 		$redirect = filter_var('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'],
 		    FILTER_SANITIZE_URL);
 		$client->setRedirectUri($redirect);
@@ -169,6 +173,7 @@ class Tool extends CI_Controller {
 
 		// Check to ensure that the access token was successfully acquired.
 		if ($client->getAccessToken()) {
+			// die('vao day cmnr');
 		  try {
 		    # All the available methods are used in sequence just for the sake of an example.
 
@@ -177,6 +182,8 @@ class Tool extends CI_Controller {
 		    'videoId' => $VIDEO_ID,
 		    'textFormat' => 'plainText',
 		    ));
+
+		    d($videoCommentThreads);
 
 		    $parentId = $videoCommentThreads[0]['id'];
 
@@ -252,7 +259,22 @@ class Tool extends CI_Controller {
 		  $_SESSION[$tokenSessionKey] = $client->getAccessToken();
 		} elseif ($OAUTH2_CLIENT_ID == 'REPLACE_ME') {
 			// Copy code to here  
+		} else {
+			// If the user hasn't authorized the app, initiate the OAuth flow
+			  $state = mt_rand();
+			  $client->setState($state);
+			  $_SESSION['state'] = $state;
+
+			  $authUrl = $client->createAuthUrl();
+			  $htmlBody = <<<END
+			    <h3>Authorization Required</h3>
+			    <p>You need to <a href="$authUrl">authorize access</a> before proceeding.<p>
+END;
 		}
+
+		$data['htmlBody'] = $htmlBody;
+
+		$this->load->view('layouts/codeto/main', $data);
 	}
 
 		/**
